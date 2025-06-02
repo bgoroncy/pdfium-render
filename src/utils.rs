@@ -333,7 +333,7 @@ pub(crate) mod files {
         // user-provided Rust reader.
         content_length: c_ulong,
         get_block: Option<
-            unsafe extern "C" fn(
+            extern "C" fn(
                 reader_ptr: *mut FpdfFileAccessExt,
                 position: c_ulong,
                 buf: *mut c_uchar,
@@ -409,7 +409,7 @@ pub(crate) mod files {
         // user-provided Rust writer.
         version: c_int,
         write_block: Option<
-            unsafe extern "C" fn(
+            extern "C" fn(
                 file_write_ext_ptr: *mut FpdfFileWriteExt,
                 buf: *const c_void,
                 size: c_ulong,

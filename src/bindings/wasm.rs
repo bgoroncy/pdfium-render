@@ -784,7 +784,7 @@ impl PdfiumRenderWasmState {
                     // pass control to the actual callback inside our WASM module.
                     std::mem::transmute::<
                         usize,
-                        unsafe extern "C" fn(
+                        extern "C" fn(
                             param: *mut c_void,
                             position: c_ulong,
                             pBuf: *mut c_uchar,
@@ -828,7 +828,7 @@ impl PdfiumRenderWasmState {
                     // pass control to the actual callback inside our WASM module.
                     std::mem::transmute::<
                         usize,
-                        unsafe extern "C" fn(
+                        extern "C" fn(
                             param: *mut FPDF_FILEWRITE,
                             buf: *const c_void,
                             size: c_ulong,

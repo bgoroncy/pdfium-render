@@ -49,56 +49,56 @@ pub(crate) struct DynamicPdfiumBindings {
 
     // Instead of using the library directly, we cache function pointers to all exposed
     // Pdfium functionality.
-    extern_FPDF_InitLibraryWithConfig: unsafe extern "C" fn(config: *const FPDF_LIBRARY_CONFIG),
-    extern_FPDF_InitLibrary: unsafe extern "C" fn(),
-    extern_FPDF_SetSandBoxPolicy: unsafe extern "C" fn(policy: FPDF_DWORD, enable: FPDF_BOOL),
-    extern_FPDF_DestroyLibrary: unsafe extern "C" fn(),
+    extern_FPDF_InitLibraryWithConfig: extern "C" fn(config: *const FPDF_LIBRARY_CONFIG),
+    extern_FPDF_InitLibrary: extern "C" fn(),
+    extern_FPDF_SetSandBoxPolicy: extern "C" fn(policy: FPDF_DWORD, enable: FPDF_BOOL),
+    extern_FPDF_DestroyLibrary: extern "C" fn(),
     #[cfg(feature = "pdfium_use_win32")]
-    extern_FPDF_SetPrintMode: unsafe extern "C" fn(mode: c_int),
-    extern_FPDF_GetLastError: unsafe extern "C" fn() -> c_ulong,
-    extern_FPDF_CreateNewDocument: unsafe extern "C" fn() -> FPDF_DOCUMENT,
+    extern_FPDF_SetPrintMode: extern "C" fn(mode: c_int),
+    extern_FPDF_GetLastError: extern "C" fn() -> c_ulong,
+    extern_FPDF_CreateNewDocument: extern "C" fn() -> FPDF_DOCUMENT,
     extern_FPDF_LoadDocument:
-        unsafe extern "C" fn(file_path: FPDF_STRING, password: FPDF_BYTESTRING) -> FPDF_DOCUMENT,
-    extern_FPDF_LoadMemDocument64: unsafe extern "C" fn(
+        extern "C" fn(file_path: FPDF_STRING, password: FPDF_BYTESTRING) -> FPDF_DOCUMENT,
+    extern_FPDF_LoadMemDocument64: extern "C" fn(
         data_buf: *const c_void,
         size: c_ulong,
         password: FPDF_BYTESTRING,
     ) -> FPDF_DOCUMENT,
-    extern_FPDF_LoadCustomDocument: unsafe extern "C" fn(
+    extern_FPDF_LoadCustomDocument: extern "C" fn(
         pFileAccess: *mut FPDF_FILEACCESS,
         password: FPDF_BYTESTRING,
     ) -> FPDF_DOCUMENT,
-    extern_FPDF_SaveAsCopy: unsafe extern "C" fn(
+    extern_FPDF_SaveAsCopy: extern "C" fn(
         document: FPDF_DOCUMENT,
         pFileWrite: *mut FPDF_FILEWRITE,
         flags: FPDF_DWORD,
     ) -> FPDF_BOOL,
-    extern_FPDF_SaveWithVersion: unsafe extern "C" fn(
+    extern_FPDF_SaveWithVersion: extern "C" fn(
         document: FPDF_DOCUMENT,
         pFileWrite: *mut FPDF_FILEWRITE,
         flags: FPDF_DWORD,
         fileVersion: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDFAvail_Create: unsafe extern "C" fn(
+    extern_FPDFAvail_Create: extern "C" fn(
         file_avail: *mut FX_FILEAVAIL,
         file: *mut FPDF_FILEACCESS,
     ) -> FPDF_AVAIL,
-    extern_FPDFAvail_Destroy: unsafe extern "C" fn(avail: FPDF_AVAIL),
+    extern_FPDFAvail_Destroy: extern "C" fn(avail: FPDF_AVAIL),
     extern_FPDFAvail_IsDocAvail:
-        unsafe extern "C" fn(avail: FPDF_AVAIL, hints: *mut FX_DOWNLOADHINTS) -> c_int,
+        extern "C" fn(avail: FPDF_AVAIL, hints: *mut FX_DOWNLOADHINTS) -> c_int,
     extern_FPDFAvail_GetDocument:
-        unsafe extern "C" fn(avail: FPDF_AVAIL, password: FPDF_BYTESTRING) -> FPDF_DOCUMENT,
-    extern_FPDFAvail_GetFirstPageNum: unsafe extern "C" fn(doc: FPDF_DOCUMENT) -> c_int,
-    extern_FPDFAvail_IsPageAvail: unsafe extern "C" fn(
+        extern "C" fn(avail: FPDF_AVAIL, password: FPDF_BYTESTRING) -> FPDF_DOCUMENT,
+    extern_FPDFAvail_GetFirstPageNum: extern "C" fn(doc: FPDF_DOCUMENT) -> c_int,
+    extern_FPDFAvail_IsPageAvail: extern "C" fn(
         avail: FPDF_AVAIL,
         page_index: c_int,
         hints: *mut FX_DOWNLOADHINTS,
     ) -> c_int,
     extern_FPDFAvail_IsFormAvail:
-        unsafe extern "C" fn(avail: FPDF_AVAIL, hints: *mut FX_DOWNLOADHINTS) -> c_int,
-    extern_FPDFAvail_IsLinearized: unsafe extern "C" fn(avail: FPDF_AVAIL) -> c_int,
-    extern_FPDF_CloseDocument: unsafe extern "C" fn(document: FPDF_DOCUMENT),
-    extern_FPDF_DeviceToPage: unsafe extern "C" fn(
+        extern "C" fn(avail: FPDF_AVAIL, hints: *mut FX_DOWNLOADHINTS) -> c_int,
+    extern_FPDFAvail_IsLinearized: extern "C" fn(avail: FPDF_AVAIL) -> c_int,
+    extern_FPDF_CloseDocument: extern "C" fn(document: FPDF_DOCUMENT),
+    extern_FPDF_DeviceToPage: extern "C" fn(
         page: FPDF_PAGE,
         start_x: c_int,
         start_y: c_int,
@@ -110,7 +110,7 @@ pub(crate) struct DynamicPdfiumBindings {
         page_x: *mut c_double,
         page_y: *mut c_double,
     ) -> FPDF_BOOL,
-    extern_FPDF_PageToDevice: unsafe extern "C" fn(
+    extern_FPDF_PageToDevice: extern "C" fn(
         page: FPDF_PAGE,
         start_x: c_int,
         start_y: c_int,
@@ -123,27 +123,27 @@ pub(crate) struct DynamicPdfiumBindings {
         device_y: *mut c_int,
     ) -> FPDF_BOOL,
     extern_FPDF_GetFileVersion:
-        unsafe extern "C" fn(doc: FPDF_DOCUMENT, fileVersion: *mut c_int) -> FPDF_BOOL,
-    extern_FPDF_GetFileIdentifier: unsafe extern "C" fn(
+        extern "C" fn(doc: FPDF_DOCUMENT, fileVersion: *mut c_int) -> FPDF_BOOL,
+    extern_FPDF_GetFileIdentifier: extern "C" fn(
         document: FPDF_DOCUMENT,
         id_type: FPDF_FILEIDTYPE,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_GetMetaText: unsafe extern "C" fn(
+    extern_FPDF_GetMetaText: extern "C" fn(
         document: FPDF_DOCUMENT,
         tag: FPDF_BYTESTRING,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDF_DocumentHasValidCrossReferenceTable:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
-    extern_FPDF_GetTrailerEnds: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
+    extern_FPDF_GetTrailerEnds: extern "C" fn(
         document: FPDF_DOCUMENT,
         buffer: *mut c_uint,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_GetDocPermissions: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_ulong,
+    extern_FPDF_GetDocPermissions: extern "C" fn(document: FPDF_DOCUMENT) -> c_ulong,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -159,13 +159,13 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6337",
         feature = "pdfium_6295",
     ))]
-    extern_FPDF_GetDocUserPermissions: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_ulong,
-    extern_FPDF_GetSecurityHandlerRevision: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
-    extern_FPDF_GetPageCount: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FPDF_GetDocUserPermissions: extern "C" fn(document: FPDF_DOCUMENT) -> c_ulong,
+    extern_FPDF_GetSecurityHandlerRevision: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FPDF_GetPageCount: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     extern_FPDF_LoadPage:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, page_index: c_int) -> FPDF_PAGE,
-    extern_FPDF_ClosePage: unsafe extern "C" fn(page: FPDF_PAGE),
-    extern_FPDF_RenderPageBitmapWithColorScheme_Start: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, page_index: c_int) -> FPDF_PAGE,
+    extern_FPDF_ClosePage: extern "C" fn(page: FPDF_PAGE),
+    extern_FPDF_RenderPageBitmapWithColorScheme_Start: extern "C" fn(
         bitmap: FPDF_BITMAP,
         page: FPDF_PAGE,
         start_x: c_int,
@@ -177,7 +177,7 @@ pub(crate) struct DynamicPdfiumBindings {
         color_scheme: *const FPDF_COLORSCHEME,
         pause: *mut IFSDK_PAUSE,
     ) -> c_int,
-    extern_FPDF_RenderPageBitmap_Start: unsafe extern "C" fn(
+    extern_FPDF_RenderPageBitmap_Start: extern "C" fn(
         bitmap: FPDF_BITMAP,
         page: FPDF_PAGE,
         start_x: c_int,
@@ -189,45 +189,45 @@ pub(crate) struct DynamicPdfiumBindings {
         pause: *mut IFSDK_PAUSE,
     ) -> c_int,
     extern_FPDF_RenderPage_Continue:
-        unsafe extern "C" fn(page: FPDF_PAGE, pause: *mut IFSDK_PAUSE) -> c_int,
-    extern_FPDF_RenderPage_Close: unsafe extern "C" fn(page: FPDF_PAGE),
-    extern_FPDF_ImportPagesByIndex: unsafe extern "C" fn(
+        extern "C" fn(page: FPDF_PAGE, pause: *mut IFSDK_PAUSE) -> c_int,
+    extern_FPDF_RenderPage_Close: extern "C" fn(page: FPDF_PAGE),
+    extern_FPDF_ImportPagesByIndex: extern "C" fn(
         dest_doc: FPDF_DOCUMENT,
         src_doc: FPDF_DOCUMENT,
         page_indices: *const c_int,
         length: c_ulong,
         index: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDF_ImportPages: unsafe extern "C" fn(
+    extern_FPDF_ImportPages: extern "C" fn(
         dest_doc: FPDF_DOCUMENT,
         src_doc: FPDF_DOCUMENT,
         pagerange: FPDF_BYTESTRING,
         index: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDF_ImportNPagesToOne: unsafe extern "C" fn(
+    extern_FPDF_ImportNPagesToOne: extern "C" fn(
         src_doc: FPDF_DOCUMENT,
         output_width: c_float,
         output_height: c_float,
         num_pages_on_x_axis: size_t,
         num_pages_on_y_axis: size_t,
     ) -> FPDF_DOCUMENT,
-    extern_FPDF_GetPageLabel: unsafe extern "C" fn(
+    extern_FPDF_GetPageLabel: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_index: c_int,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_GetXFAPacketCount: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FPDF_GetXFAPacketCount: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_GetXFAPacketName: unsafe extern "C" fn(
+    extern_FPDF_GetXFAPacketName: extern "C" fn(
         document: FPDF_DOCUMENT,
         index: c_int,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_GetXFAPacketContent: unsafe extern "C" fn(
+    extern_FPDF_GetXFAPacketContent: extern "C" fn(
         document: FPDF_DOCUMENT,
         index: c_int,
         buffer: *mut c_void,
@@ -235,132 +235,132 @@ pub(crate) struct DynamicPdfiumBindings {
         out_buflen: *mut c_ulong,
     ) -> FPDF_BOOL,
     #[cfg(feature = "pdfium_enable_v8")]
-    extern_FPDF_GetRecommendedV8Flags: unsafe extern "C" fn() -> *const c_char,
+    extern_FPDF_GetRecommendedV8Flags: extern "C" fn() -> *const c_char,
     #[cfg(feature = "pdfium_enable_v8")]
-    extern_FPDF_GetArrayBufferAllocatorSharedInstance: unsafe extern "C" fn() -> *mut c_void,
+    extern_FPDF_GetArrayBufferAllocatorSharedInstance: extern "C" fn() -> *mut c_void,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_BStr_Init: unsafe extern "C" fn(bstr: *mut FPDF_BSTR) -> FPDF_RESULT,
+    extern_FPDF_BStr_Init: extern "C" fn(bstr: *mut FPDF_BSTR) -> FPDF_RESULT,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_BStr_Set: unsafe extern "C" fn(
+    extern_FPDF_BStr_Set: extern "C" fn(
         bstr: *mut FPDF_BSTR,
         cstr: *const c_char,
         length: c_int,
     ) -> FPDF_RESULT,
     #[cfg(feature = "pdfium_enable_xfa")]
-    extern_FPDF_BStr_Clear: unsafe extern "C" fn(bstr: *mut FPDF_BSTR) -> FPDF_RESULT,
+    extern_FPDF_BStr_Clear: extern "C" fn(bstr: *mut FPDF_BSTR) -> FPDF_RESULT,
     extern_FPDF_GetPageBoundingBox:
-        unsafe extern "C" fn(page: FPDF_PAGE, rect: *mut FS_RECTF) -> FPDF_BOOL,
-    extern_FPDF_GetPageSizeByIndexF: unsafe extern "C" fn(
+        extern "C" fn(page: FPDF_PAGE, rect: *mut FS_RECTF) -> FPDF_BOOL,
+    extern_FPDF_GetPageSizeByIndexF: extern "C" fn(
         page: FPDF_DOCUMENT,
         page_index: c_int,
         size: *mut FS_SIZEF,
     ) -> FPDF_BOOL,
-    extern_FPDF_GetPageSizeByIndex: unsafe extern "C" fn(
+    extern_FPDF_GetPageSizeByIndex: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_index: c_int,
         width: *mut f64,
         height: *mut f64,
     ) -> c_int,
-    extern_FPDF_NewXObjectFromPage: unsafe extern "C" fn(
+    extern_FPDF_NewXObjectFromPage: extern "C" fn(
         dest_doc: FPDF_DOCUMENT,
         src_doc: FPDF_DOCUMENT,
         src_page_index: c_int,
     ) -> FPDF_XOBJECT,
-    extern_FPDF_CloseXObject: unsafe extern "C" fn(xobject: FPDF_XOBJECT),
+    extern_FPDF_CloseXObject: extern "C" fn(xobject: FPDF_XOBJECT),
     extern_FPDF_NewFormObjectFromXObject:
-        unsafe extern "C" fn(xobject: FPDF_XOBJECT) -> FPDF_PAGEOBJECT,
+        extern "C" fn(xobject: FPDF_XOBJECT) -> FPDF_PAGEOBJECT,
     extern_FPDF_CopyViewerPreferences:
-        unsafe extern "C" fn(dest_doc: FPDF_DOCUMENT, src_doc: FPDF_DOCUMENT) -> FPDF_BOOL,
-    extern_FPDF_GetPageWidth: unsafe extern "C" fn(page: FPDF_PAGE) -> f64,
-    extern_FPDF_GetPageHeight: unsafe extern "C" fn(page: FPDF_PAGE) -> f64,
-    extern_FPDF_GetPageWidthF: unsafe extern "C" fn(page: FPDF_PAGE) -> c_float,
-    extern_FPDF_GetPageHeightF: unsafe extern "C" fn(page: FPDF_PAGE) -> c_float,
+        extern "C" fn(dest_doc: FPDF_DOCUMENT, src_doc: FPDF_DOCUMENT) -> FPDF_BOOL,
+    extern_FPDF_GetPageWidth: extern "C" fn(page: FPDF_PAGE) -> f64,
+    extern_FPDF_GetPageHeight: extern "C" fn(page: FPDF_PAGE) -> f64,
+    extern_FPDF_GetPageWidthF: extern "C" fn(page: FPDF_PAGE) -> c_float,
+    extern_FPDF_GetPageHeightF: extern "C" fn(page: FPDF_PAGE) -> c_float,
     extern_FPDFText_GetCharIndexFromTextIndex:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, nTextIndex: c_int) -> c_int,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, nTextIndex: c_int) -> c_int,
     extern_FPDFText_GetTextIndexFromCharIndex:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, nCharIndex: c_int) -> c_int,
-    extern_FPDF_GetSignatureCount: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, nCharIndex: c_int) -> c_int,
+    extern_FPDF_GetSignatureCount: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     extern_FPDF_GetSignatureObject:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_SIGNATURE,
-    extern_FPDFSignatureObj_GetContents: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_SIGNATURE,
+    extern_FPDFSignatureObj_GetContents: extern "C" fn(
         signature: FPDF_SIGNATURE,
         buffer: *mut c_void,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFSignatureObj_GetByteRange: unsafe extern "C" fn(
+    extern_FPDFSignatureObj_GetByteRange: extern "C" fn(
         signature: FPDF_SIGNATURE,
         buffer: *mut c_int,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFSignatureObj_GetSubFilter: unsafe extern "C" fn(
+    extern_FPDFSignatureObj_GetSubFilter: extern "C" fn(
         signature: FPDF_SIGNATURE,
         buffer: *mut c_char,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFSignatureObj_GetReason: unsafe extern "C" fn(
+    extern_FPDFSignatureObj_GetReason: extern "C" fn(
         signature: FPDF_SIGNATURE,
         buffer: *mut c_void,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFSignatureObj_GetTime: unsafe extern "C" fn(
+    extern_FPDFSignatureObj_GetTime: extern "C" fn(
         signature: FPDF_SIGNATURE,
         buffer: *mut c_char,
         length: c_ulong,
     ) -> c_ulong,
     extern_FPDFSignatureObj_GetDocMDPPermission:
-        unsafe extern "C" fn(signature: FPDF_SIGNATURE) -> c_uint,
-    extern_FPDF_StructTree_GetForPage: unsafe extern "C" fn(page: FPDF_PAGE) -> FPDF_STRUCTTREE,
-    extern_FPDF_StructTree_Close: unsafe extern "C" fn(struct_tree: FPDF_STRUCTTREE),
+        extern "C" fn(signature: FPDF_SIGNATURE) -> c_uint,
+    extern_FPDF_StructTree_GetForPage: extern "C" fn(page: FPDF_PAGE) -> FPDF_STRUCTTREE,
+    extern_FPDF_StructTree_Close: extern "C" fn(struct_tree: FPDF_STRUCTTREE),
     extern_FPDF_StructTree_CountChildren:
-        unsafe extern "C" fn(struct_tree: FPDF_STRUCTTREE) -> c_int,
+        extern "C" fn(struct_tree: FPDF_STRUCTTREE) -> c_int,
     extern_FPDF_StructTree_GetChildAtIndex:
-        unsafe extern "C" fn(struct_tree: FPDF_STRUCTTREE, index: c_int) -> FPDF_STRUCTELEMENT,
-    extern_FPDF_StructElement_GetAltText: unsafe extern "C" fn(
+        extern "C" fn(struct_tree: FPDF_STRUCTTREE, index: c_int) -> FPDF_STRUCTELEMENT,
+    extern_FPDF_StructElement_GetAltText: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetActualText: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetActualText: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetID: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetID: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetLang: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetLang: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetStringAttribute: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetStringAttribute: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         attr_name: FPDF_BYTESTRING,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDF_StructElement_GetMarkedContentID:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
-    extern_FPDF_StructElement_GetType: unsafe extern "C" fn(
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
+    extern_FPDF_StructElement_GetType: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetObjType: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetObjType: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_StructElement_GetTitle: unsafe extern "C" fn(
+    extern_FPDF_StructElement_GetTitle: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDF_StructElement_CountChildren:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
-    extern_FPDF_StructElement_GetChildAtIndex: unsafe extern "C" fn(
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
+    extern_FPDF_StructElement_GetChildAtIndex: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         index: c_int,
     ) -> FPDF_STRUCTELEMENT,
@@ -384,19 +384,19 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6084",
     ))]
     extern_FPDF_StructElement_GetChildMarkedContentID:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT, index: c_int) -> c_int,
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT, index: c_int) -> c_int,
     extern_FPDF_StructElement_GetParent:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> FPDF_STRUCTELEMENT,
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> FPDF_STRUCTELEMENT,
     extern_FPDF_StructElement_GetAttributeCount:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
-    extern_FPDF_StructElement_GetAttributeAtIndex: unsafe extern "C" fn(
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
+    extern_FPDF_StructElement_GetAttributeAtIndex: extern "C" fn(
         struct_element: FPDF_STRUCTELEMENT,
         index: c_int,
     )
         -> FPDF_STRUCTELEMENT_ATTR,
     extern_FPDF_StructElement_Attr_GetCount:
-        unsafe extern "C" fn(struct_attribute: FPDF_STRUCTELEMENT_ATTR) -> c_int,
-    extern_FPDF_StructElement_Attr_GetName: unsafe extern "C" fn(
+        extern "C" fn(struct_attribute: FPDF_STRUCTELEMENT_ATTR) -> c_int,
+    extern_FPDF_StructElement_Attr_GetName: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         index: c_int,
         buffer: *mut c_void,
@@ -414,7 +414,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6555",
         feature = "pdfium_6490",
     ))]
-    extern_FPDF_StructElement_Attr_GetValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetValue: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
     )
@@ -432,7 +432,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDF_StructElement_Attr_GetType: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetType: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
     ) -> FPDF_OBJECT_TYPE,
@@ -448,7 +448,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6490",
     ))]
     extern_FPDF_StructElement_Attr_GetType:
-        unsafe extern "C" fn(value: FPDF_STRUCTELEMENT_ATTR_VALUE) -> FPDF_OBJECT_TYPE,
+        extern "C" fn(value: FPDF_STRUCTELEMENT_ATTR_VALUE) -> FPDF_OBJECT_TYPE,
     #[cfg(any(
         feature = "pdfium_6406",
         feature = "pdfium_6337",
@@ -462,7 +462,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDF_StructElement_Attr_GetBooleanValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetBooleanValue: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
         out_value: *mut FPDF_BOOL,
@@ -478,7 +478,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6555",
         feature = "pdfium_6490",
     ))]
-    extern_FPDF_StructElement_Attr_GetBooleanValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetBooleanValue: extern "C" fn(
         value: FPDF_STRUCTELEMENT_ATTR_VALUE,
         out_value: *mut FPDF_BOOL,
     ) -> FPDF_BOOL,
@@ -495,7 +495,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDF_StructElement_Attr_GetNumberValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetNumberValue: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
         out_value: *mut f32,
@@ -511,7 +511,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6555",
         feature = "pdfium_6490",
     ))]
-    extern_FPDF_StructElement_Attr_GetNumberValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetNumberValue: extern "C" fn(
         value: FPDF_STRUCTELEMENT_ATTR_VALUE,
         out_value: *mut f32,
     ) -> FPDF_BOOL,
@@ -528,7 +528,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDF_StructElement_Attr_GetStringValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetStringValue: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
         buffer: *mut c_void,
@@ -546,7 +546,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6555",
         feature = "pdfium_6490",
     ))]
-    extern_FPDF_StructElement_Attr_GetStringValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetStringValue: extern "C" fn(
         value: FPDF_STRUCTELEMENT_ATTR_VALUE,
         buffer: *mut c_void,
         buflen: c_ulong,
@@ -565,7 +565,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDF_StructElement_Attr_GetBlobValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetBlobValue: extern "C" fn(
         struct_attribute: FPDF_STRUCTELEMENT_ATTR,
         name: FPDF_BYTESTRING,
         buffer: *mut c_void,
@@ -583,7 +583,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6555",
         feature = "pdfium_6490",
     ))]
-    extern_FPDF_StructElement_Attr_GetBlobValue: unsafe extern "C" fn(
+    extern_FPDF_StructElement_Attr_GetBlobValue: extern "C" fn(
         value: FPDF_STRUCTELEMENT_ATTR_VALUE,
         buffer: *mut c_void,
         buflen: c_ulong,
@@ -601,7 +601,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6490",
     ))]
     extern_FPDF_StructElement_Attr_CountChildren:
-        unsafe extern "C" fn(value: FPDF_STRUCTELEMENT_ATTR_VALUE) -> c_int,
+        extern "C" fn(value: FPDF_STRUCTELEMENT_ATTR_VALUE) -> c_int,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -614,21 +614,21 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6490",
     ))]
     extern_FPDF_StructElement_Attr_GetChildAtIndex:
-        unsafe extern "C" fn(
+        extern "C" fn(
             value: FPDF_STRUCTELEMENT_ATTR_VALUE,
             index: c_int,
         ) -> FPDF_STRUCTELEMENT_ATTR_VALUE,
     extern_FPDF_StructElement_GetMarkedContentIdCount:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT) -> c_int,
     extern_FPDF_StructElement_GetMarkedContentIdAtIndex:
-        unsafe extern "C" fn(struct_element: FPDF_STRUCTELEMENT, index: c_int) -> c_int,
-    extern_FPDFPage_New: unsafe extern "C" fn(
+        extern "C" fn(struct_element: FPDF_STRUCTELEMENT, index: c_int) -> c_int,
+    extern_FPDFPage_New: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_index: c_int,
         width: c_double,
         height: c_double,
     ) -> FPDF_PAGE,
-    extern_FPDFPage_Delete: unsafe extern "C" fn(document: FPDF_DOCUMENT, page_index: c_int),
+    extern_FPDFPage_Delete: extern "C" fn(document: FPDF_DOCUMENT, page_index: c_int),
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -649,90 +649,90 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6084",
         feature = "pdfium_6043",
     ))]
-    extern_FPDF_MovePages: unsafe extern "C" fn(
+    extern_FPDF_MovePages: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_indices: *const c_int,
         page_indices_len: c_ulong,
         dest_page_index: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_GetRotation: unsafe extern "C" fn(page: FPDF_PAGE) -> c_int,
-    extern_FPDFPage_SetRotation: unsafe extern "C" fn(page: FPDF_PAGE, rotate: c_int),
-    extern_FPDFPage_GetMediaBox: unsafe extern "C" fn(
+    extern_FPDFPage_GetRotation: extern "C" fn(page: FPDF_PAGE) -> c_int,
+    extern_FPDFPage_SetRotation: extern "C" fn(page: FPDF_PAGE, rotate: c_int),
+    extern_FPDFPage_GetMediaBox: extern "C" fn(
         page: FPDF_PAGE,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_GetCropBox: unsafe extern "C" fn(
+    extern_FPDFPage_GetCropBox: extern "C" fn(
         page: FPDF_PAGE,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_GetBleedBox: unsafe extern "C" fn(
+    extern_FPDFPage_GetBleedBox: extern "C" fn(
         page: FPDF_PAGE,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_GetTrimBox: unsafe extern "C" fn(
+    extern_FPDFPage_GetTrimBox: extern "C" fn(
         page: FPDF_PAGE,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_GetArtBox: unsafe extern "C" fn(
+    extern_FPDFPage_GetArtBox: extern "C" fn(
         page: FPDF_PAGE,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_SetMediaBox: unsafe extern "C" fn(
+    extern_FPDFPage_SetMediaBox: extern "C" fn(
         page: FPDF_PAGE,
         left: c_float,
         bottom: c_float,
         right: c_float,
         top: c_float,
     ),
-    extern_FPDFPage_SetCropBox: unsafe extern "C" fn(
+    extern_FPDFPage_SetCropBox: extern "C" fn(
         page: FPDF_PAGE,
         left: c_float,
         bottom: c_float,
         right: c_float,
         top: c_float,
     ),
-    extern_FPDFPage_SetBleedBox: unsafe extern "C" fn(
+    extern_FPDFPage_SetBleedBox: extern "C" fn(
         page: FPDF_PAGE,
         left: c_float,
         bottom: c_float,
         right: c_float,
         top: c_float,
     ),
-    extern_FPDFPage_SetTrimBox: unsafe extern "C" fn(
+    extern_FPDFPage_SetTrimBox: extern "C" fn(
         page: FPDF_PAGE,
         left: c_float,
         bottom: c_float,
         right: c_float,
         top: c_float,
     ),
-    extern_FPDFPage_SetArtBox: unsafe extern "C" fn(
+    extern_FPDFPage_SetArtBox: extern "C" fn(
         page: FPDF_PAGE,
         left: c_float,
         bottom: c_float,
         right: c_float,
         top: c_float,
     ),
-    extern_FPDFPage_TransFormWithClip: unsafe extern "C" fn(
+    extern_FPDFPage_TransFormWithClip: extern "C" fn(
         page: FPDF_PAGE,
         matrix: *const FS_MATRIX,
         clipRect: *const FS_RECTF,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObj_TransformClipPath: unsafe extern "C" fn(
+    extern_FPDFPageObj_TransformClipPath: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         a: f64,
         b: f64,
@@ -742,22 +742,22 @@ pub(crate) struct DynamicPdfiumBindings {
         f: f64,
     ),
     extern_FPDFPageObj_GetClipPath:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> FPDF_CLIPPATH,
-    extern_FPDFClipPath_CountPaths: unsafe extern "C" fn(clip_path: FPDF_CLIPPATH) -> c_int,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT) -> FPDF_CLIPPATH,
+    extern_FPDFClipPath_CountPaths: extern "C" fn(clip_path: FPDF_CLIPPATH) -> c_int,
     extern_FPDFClipPath_CountPathSegments:
-        unsafe extern "C" fn(clip_path: FPDF_CLIPPATH, path_index: c_int) -> c_int,
-    extern_FPDFClipPath_GetPathSegment: unsafe extern "C" fn(
+        extern "C" fn(clip_path: FPDF_CLIPPATH, path_index: c_int) -> c_int,
+    extern_FPDFClipPath_GetPathSegment: extern "C" fn(
         clip_path: FPDF_CLIPPATH,
         path_index: c_int,
         segment_index: c_int,
     ) -> FPDF_PATHSEGMENT,
     extern_FPDF_CreateClipPath:
-        unsafe extern "C" fn(left: f32, bottom: f32, right: f32, top: f32) -> FPDF_CLIPPATH,
-    extern_FPDF_DestroyClipPath: unsafe extern "C" fn(clipPath: FPDF_CLIPPATH),
-    extern_FPDFPage_InsertClipPath: unsafe extern "C" fn(page: FPDF_PAGE, clipPath: FPDF_CLIPPATH),
-    extern_FPDFPage_HasTransparency: unsafe extern "C" fn(page: FPDF_PAGE) -> FPDF_BOOL,
-    extern_FPDFPage_GenerateContent: unsafe extern "C" fn(page: FPDF_PAGE) -> FPDF_BOOL,
-    extern_FPDFPage_TransformAnnots: unsafe extern "C" fn(
+        extern "C" fn(left: f32, bottom: f32, right: f32, top: f32) -> FPDF_CLIPPATH,
+    extern_FPDF_DestroyClipPath: extern "C" fn(clipPath: FPDF_CLIPPATH),
+    extern_FPDFPage_InsertClipPath: extern "C" fn(page: FPDF_PAGE, clipPath: FPDF_CLIPPATH),
+    extern_FPDFPage_HasTransparency: extern "C" fn(page: FPDF_PAGE) -> FPDF_BOOL,
+    extern_FPDFPage_GenerateContent: extern "C" fn(page: FPDF_PAGE) -> FPDF_BOOL,
+    extern_FPDFPage_TransformAnnots: extern "C" fn(
         page: FPDF_PAGE,
         a: c_double,
         b: c_double,
@@ -767,17 +767,17 @@ pub(crate) struct DynamicPdfiumBindings {
         f: c_double,
     ),
     extern_FPDFBitmap_Create:
-        unsafe extern "C" fn(width: c_int, height: c_int, alpha: c_int) -> FPDF_BITMAP,
-    extern_FPDFBitmap_CreateEx: unsafe extern "C" fn(
+        extern "C" fn(width: c_int, height: c_int, alpha: c_int) -> FPDF_BITMAP,
+    extern_FPDFBitmap_CreateEx: extern "C" fn(
         width: c_int,
         height: c_int,
         format: c_int,
         first_scan: *mut c_void,
         stride: c_int,
     ) -> FPDF_BITMAP,
-    extern_FPDFBitmap_Destroy: unsafe extern "C" fn(bitmap: FPDF_BITMAP),
+    extern_FPDFBitmap_Destroy: extern "C" fn(bitmap: FPDF_BITMAP),
     #[cfg(feature = "pdfium_use_win32")]
-    extern_FPDF_RenderPage: unsafe extern "C" fn(
+    extern_FPDF_RenderPage: extern "C" fn(
         dc: windows::Win32::Graphics::Gdi::HDC,
         page: FPDF_PAGE,
         start_x: c_int,
@@ -787,7 +787,7 @@ pub(crate) struct DynamicPdfiumBindings {
         rotate: c_int,
         flags: c_int,
     ),
-    extern_FPDFBitmap_GetFormat: unsafe extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
+    extern_FPDFBitmap_GetFormat: extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
     #[cfg(any(
         feature = "pdfium_6611",
         feature = "pdfium_6569",
@@ -805,7 +805,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961"
     ))]
-    extern_FPDFBitmap_FillRect: unsafe extern "C" fn(
+    extern_FPDFBitmap_FillRect: extern "C" fn(
         bitmap: FPDF_BITMAP,
         left: c_int,
         top: c_int,
@@ -820,7 +820,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6721",
         feature = "pdfium_6666",
     ))]
-    extern_FPDFBitmap_FillRect: unsafe extern "C" fn(
+    extern_FPDFBitmap_FillRect: extern "C" fn(
         bitmap: FPDF_BITMAP,
         left: c_int,
         top: c_int,
@@ -828,11 +828,11 @@ pub(crate) struct DynamicPdfiumBindings {
         height: c_int,
         color: FPDF_DWORD,
     ) -> FPDF_BOOL,
-    extern_FPDFBitmap_GetBuffer: unsafe extern "C" fn(bitmap: FPDF_BITMAP) -> *mut c_void,
-    extern_FPDFBitmap_GetWidth: unsafe extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
-    extern_FPDFBitmap_GetHeight: unsafe extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
-    extern_FPDFBitmap_GetStride: unsafe extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
-    extern_FPDF_RenderPageBitmap: unsafe extern "C" fn(
+    extern_FPDFBitmap_GetBuffer: extern "C" fn(bitmap: FPDF_BITMAP) -> *mut c_void,
+    extern_FPDFBitmap_GetWidth: extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
+    extern_FPDFBitmap_GetHeight: extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
+    extern_FPDFBitmap_GetStride: extern "C" fn(bitmap: FPDF_BITMAP) -> c_int,
+    extern_FPDF_RenderPageBitmap: extern "C" fn(
         bitmap: FPDF_BITMAP,
         page: FPDF_PAGE,
         start_x: c_int,
@@ -842,7 +842,7 @@ pub(crate) struct DynamicPdfiumBindings {
         rotate: c_int,
         flags: c_int,
     ),
-    extern_FPDF_RenderPageBitmapWithMatrix: unsafe extern "C" fn(
+    extern_FPDF_RenderPageBitmapWithMatrix: extern "C" fn(
         bitmap: FPDF_BITMAP,
         page: FPDF_PAGE,
         matrix: *const FS_MATRIX,
@@ -850,43 +850,43 @@ pub(crate) struct DynamicPdfiumBindings {
         flags: c_int,
     ),
     #[cfg(feature = "pdfium_use_skia")]
-    extern_FPDF_RenderPageSkia: unsafe extern "C" fn(
+    extern_FPDF_RenderPageSkia: extern "C" fn(
         canvas: FPDF_SKIA_CANVAS,
         page: FPDF_PAGE,
         size_x: c_int,
         size_y: c_int,
     ),
     extern_FPDFAnnot_IsSupportedSubtype:
-        unsafe extern "C" fn(subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_BOOL,
+        extern "C" fn(subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_BOOL,
     extern_FPDFPage_CreateAnnot:
-        unsafe extern "C" fn(page: FPDF_PAGE, subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_ANNOTATION,
-    extern_FPDFPage_GetAnnotCount: unsafe extern "C" fn(page: FPDF_PAGE) -> c_int,
+        extern "C" fn(page: FPDF_PAGE, subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_ANNOTATION,
+    extern_FPDFPage_GetAnnotCount: extern "C" fn(page: FPDF_PAGE) -> c_int,
     extern_FPDFPage_GetAnnot:
-        unsafe extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_ANNOTATION,
+        extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_ANNOTATION,
     extern_FPDFPage_GetAnnotIndex:
-        unsafe extern "C" fn(page: FPDF_PAGE, annot: FPDF_ANNOTATION) -> c_int,
-    extern_FPDFPage_CloseAnnot: unsafe extern "C" fn(annot: FPDF_ANNOTATION),
-    extern_FPDFPage_RemoveAnnot: unsafe extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_BOOL,
+        extern "C" fn(page: FPDF_PAGE, annot: FPDF_ANNOTATION) -> c_int,
+    extern_FPDFPage_CloseAnnot: extern "C" fn(annot: FPDF_ANNOTATION),
+    extern_FPDFPage_RemoveAnnot: extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_BOOL,
     extern_FPDFAnnot_GetSubtype:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_ANNOTATION_SUBTYPE,
+        extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_ANNOTATION_SUBTYPE,
     extern_FPDFAnnot_IsObjectSupportedSubtype:
-        unsafe extern "C" fn(subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_BOOL,
+        extern "C" fn(subtype: FPDF_ANNOTATION_SUBTYPE) -> FPDF_BOOL,
     extern_FPDFAnnot_UpdateObject:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
-    extern_FPDFAnnot_AddInkStroke: unsafe extern "C" fn(
+        extern "C" fn(annot: FPDF_ANNOTATION, obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
+    extern_FPDFAnnot_AddInkStroke: extern "C" fn(
         annot: FPDF_ANNOTATION,
         points: *const FS_POINTF,
         point_count: size_t,
     ) -> c_int,
-    extern_FPDFAnnot_RemoveInkList: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_BOOL,
+    extern_FPDFAnnot_RemoveInkList: extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_BOOL,
     extern_FPDFAnnot_AppendObject:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetObjectCount: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> c_int,
+        extern "C" fn(annot: FPDF_ANNOTATION, obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
+    extern_FPDFAnnot_GetObjectCount: extern "C" fn(annot: FPDF_ANNOTATION) -> c_int,
     extern_FPDFAnnot_GetObject:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, index: c_int) -> FPDF_PAGEOBJECT,
+        extern "C" fn(annot: FPDF_ANNOTATION, index: c_int) -> FPDF_PAGEOBJECT,
     extern_FPDFAnnot_RemoveObject:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, index: c_int) -> FPDF_BOOL,
-    extern_FPDFAnnot_SetColor: unsafe extern "C" fn(
+        extern "C" fn(annot: FPDF_ANNOTATION, index: c_int) -> FPDF_BOOL,
+    extern_FPDFAnnot_SetColor: extern "C" fn(
         annot: FPDF_ANNOTATION,
         color_type: FPDFANNOT_COLORTYPE,
         R: c_uint,
@@ -894,7 +894,7 @@ pub(crate) struct DynamicPdfiumBindings {
         B: c_uint,
         A: c_uint,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetColor: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetColor: extern "C" fn(
         annot: FPDF_ANNOTATION,
         color_type: FPDFANNOT_COLORTYPE,
         R: *mut c_uint,
@@ -902,140 +902,140 @@ pub(crate) struct DynamicPdfiumBindings {
         B: *mut c_uint,
         A: *mut c_uint,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_HasAttachmentPoints: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_BOOL,
-    extern_FPDFAnnot_SetAttachmentPoints: unsafe extern "C" fn(
+    extern_FPDFAnnot_HasAttachmentPoints: extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_BOOL,
+    extern_FPDFAnnot_SetAttachmentPoints: extern "C" fn(
         annot: FPDF_ANNOTATION,
         quad_index: size_t,
         quad_points: *const FS_QUADPOINTSF,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_AppendAttachmentPoints: unsafe extern "C" fn(
+    extern_FPDFAnnot_AppendAttachmentPoints: extern "C" fn(
         annot: FPDF_ANNOTATION,
         quad_points: *const FS_QUADPOINTSF,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_CountAttachmentPoints: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> size_t,
-    extern_FPDFAnnot_GetAttachmentPoints: unsafe extern "C" fn(
+    extern_FPDFAnnot_CountAttachmentPoints: extern "C" fn(annot: FPDF_ANNOTATION) -> size_t,
+    extern_FPDFAnnot_GetAttachmentPoints: extern "C" fn(
         annot: FPDF_ANNOTATION,
         quad_index: size_t,
         quad_points: *mut FS_QUADPOINTSF,
     ) -> FPDF_BOOL,
     extern_FPDFAnnot_SetRect:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, rect: *const FS_RECTF) -> FPDF_BOOL,
+        extern "C" fn(annot: FPDF_ANNOTATION, rect: *const FS_RECTF) -> FPDF_BOOL,
     extern_FPDFAnnot_GetRect:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, rect: *mut FS_RECTF) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetVertices: unsafe extern "C" fn(
+        extern "C" fn(annot: FPDF_ANNOTATION, rect: *mut FS_RECTF) -> FPDF_BOOL,
+    extern_FPDFAnnot_GetVertices: extern "C" fn(
         annot: FPDF_ANNOTATION,
         buffer: *mut FS_POINTF,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAnnot_GetInkListCount: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> c_ulong,
-    extern_FPDFAnnot_GetInkListPath: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetInkListCount: extern "C" fn(annot: FPDF_ANNOTATION) -> c_ulong,
+    extern_FPDFAnnot_GetInkListPath: extern "C" fn(
         annot: FPDF_ANNOTATION,
         path_index: c_ulong,
         buffer: *mut FS_POINTF,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAnnot_GetLine: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetLine: extern "C" fn(
         annot: FPDF_ANNOTATION,
         start: *mut FS_POINTF,
         end: *mut FS_POINTF,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_SetBorder: unsafe extern "C" fn(
+    extern_FPDFAnnot_SetBorder: extern "C" fn(
         annot: FPDF_ANNOTATION,
         horizontal_radius: f32,
         vertical_radius: f32,
         border_width: f32,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetBorder: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetBorder: extern "C" fn(
         annot: FPDF_ANNOTATION,
         horizontal_radius: *mut f32,
         vertical_radius: *mut f32,
         border_width: *mut f32,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetFormAdditionalActionJavaScript: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetFormAdditionalActionJavaScript: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         event: c_int,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAnnot_GetFormFieldAlternateName: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetFormFieldAlternateName: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAnnot_HasKey:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_BOOL,
+        extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_BOOL,
     extern_FPDFAnnot_GetValueType:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
-    extern_FPDFAnnot_SetStringValue: unsafe extern "C" fn(
+        extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
+    extern_FPDFAnnot_SetStringValue: extern "C" fn(
         annot: FPDF_ANNOTATION,
         key: FPDF_BYTESTRING,
         value: FPDF_WIDESTRING,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetStringValue: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetStringValue: extern "C" fn(
         annot: FPDF_ANNOTATION,
         key: FPDF_BYTESTRING,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAnnot_GetNumberValue: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetNumberValue: extern "C" fn(
         annot: FPDF_ANNOTATION,
         key: FPDF_BYTESTRING,
         value: *mut f32,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_SetAP: unsafe extern "C" fn(
+    extern_FPDFAnnot_SetAP: extern "C" fn(
         annot: FPDF_ANNOTATION,
         appearanceMode: FPDF_ANNOT_APPEARANCEMODE,
         value: FPDF_WIDESTRING,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetAP: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetAP: extern "C" fn(
         annot: FPDF_ANNOTATION,
         appearanceMode: FPDF_ANNOT_APPEARANCEMODE,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAnnot_GetLinkedAnnot:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_ANNOTATION,
-    extern_FPDFAnnot_GetFlags: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> c_int,
+        extern "C" fn(annot: FPDF_ANNOTATION, key: FPDF_BYTESTRING) -> FPDF_ANNOTATION,
+    extern_FPDFAnnot_GetFlags: extern "C" fn(annot: FPDF_ANNOTATION) -> c_int,
     extern_FPDFAnnot_SetFlags:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, flags: c_int) -> FPDF_BOOL,
+        extern "C" fn(annot: FPDF_ANNOTATION, flags: c_int) -> FPDF_BOOL,
     extern_FPDFAnnot_GetFormFieldFlags:
-        unsafe extern "C" fn(handle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
-    extern_FPDFAnnot_GetFormFieldAtPoint: unsafe extern "C" fn(
+        extern "C" fn(handle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
+    extern_FPDFAnnot_GetFormFieldAtPoint: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         point: *const FS_POINTF,
     ) -> FPDF_ANNOTATION,
-    extern_FPDFAnnot_GetFormFieldName: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetFormFieldName: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAnnot_GetFormFieldType:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
-    extern_FPDFAnnot_GetFormFieldValue: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
+    extern_FPDFAnnot_GetFormFieldValue: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAnnot_GetOptionCount:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
-    extern_FPDFAnnot_GetOptionLabel: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
+    extern_FPDFAnnot_GetOptionLabel: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         index: c_int,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAnnot_IsOptionSelected: unsafe extern "C" fn(
+    extern_FPDFAnnot_IsOptionSelected: extern "C" fn(
         handle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         index: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetFontSize: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetFontSize: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         value: *mut f32,
@@ -1050,7 +1050,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6569",
         feature = "pdfium_6555",
     ))]
-    extern_FPDFAnnot_GetFontColor: unsafe extern "C" fn(
+    extern_FPDFAnnot_GetFontColor: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         R: *mut c_uint,
@@ -1058,32 +1058,32 @@ pub(crate) struct DynamicPdfiumBindings {
         B: *mut c_uint,
     ) -> FPDF_BOOL,
     extern_FPDFAnnot_IsChecked:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> FPDF_BOOL,
-    extern_FPDFAnnot_SetFocusableSubtypes: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> FPDF_BOOL,
+    extern_FPDFAnnot_SetFocusableSubtypes: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         subtypes: *const FPDF_ANNOTATION_SUBTYPE,
         count: size_t,
     ) -> FPDF_BOOL,
     extern_FPDFAnnot_GetFocusableSubtypesCount:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE) -> c_int,
-    extern_FPDFAnnot_GetFocusableSubtypes: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE) -> c_int,
+    extern_FPDFAnnot_GetFocusableSubtypes: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         subtypes: *mut FPDF_ANNOTATION_SUBTYPE,
         count: size_t,
     ) -> FPDF_BOOL,
-    extern_FPDFAnnot_GetLink: unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_LINK,
+    extern_FPDFAnnot_GetLink: extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_LINK,
     extern_FPDFAnnot_GetFormControlCount:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
     extern_FPDFAnnot_GetFormControlIndex:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
-    extern_FPDFAnnot_GetFormFieldExportValue: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> c_int,
+    extern_FPDFAnnot_GetFormFieldExportValue: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         annot: FPDF_ANNOTATION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAnnot_SetURI:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, uri: *const c_char) -> FPDF_BOOL,
+        extern "C" fn(annot: FPDF_ANNOTATION, uri: *const c_char) -> FPDF_BOOL,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1098,7 +1098,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6337",
     ))]
     extern_FPDFAnnot_GetFileAttachment:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_ATTACHMENT,
+        extern "C" fn(annot: FPDF_ANNOTATION) -> FPDF_ATTACHMENT,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1113,29 +1113,29 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6337",
     ))]
     extern_FPDFAnnot_AddFileAttachment:
-        unsafe extern "C" fn(annot: FPDF_ANNOTATION, name: FPDF_WIDESTRING) -> FPDF_ATTACHMENT,
-    extern_FPDFDOC_InitFormFillEnvironment: unsafe extern "C" fn(
+        extern "C" fn(annot: FPDF_ANNOTATION, name: FPDF_WIDESTRING) -> FPDF_ATTACHMENT,
+    extern_FPDFDOC_InitFormFillEnvironment: extern "C" fn(
         document: FPDF_DOCUMENT,
         form_info: *mut FPDF_FORMFILLINFO,
     ) -> FPDF_FORMHANDLE,
-    extern_FPDFDOC_ExitFormFillEnvironment: unsafe extern "C" fn(handle: FPDF_FORMHANDLE),
-    extern_FORM_OnAfterLoadPage: unsafe extern "C" fn(page: FPDF_PAGE, handle: FPDF_FORMHANDLE),
-    extern_FORM_OnBeforeClosePage: unsafe extern "C" fn(page: FPDF_PAGE, handle: FPDF_FORMHANDLE),
-    extern_FPDFDoc_GetPageMode: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
-    extern_FPDFPage_Flatten: unsafe extern "C" fn(page: FPDF_PAGE, nFlag: c_int) -> c_int,
-    extern_FORM_DoDocumentJSAction: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE),
-    extern_FORM_DoDocumentOpenAction: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE),
-    extern_FORM_DoDocumentAAction: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, aaType: c_int),
+    extern_FPDFDOC_ExitFormFillEnvironment: extern "C" fn(handle: FPDF_FORMHANDLE),
+    extern_FORM_OnAfterLoadPage: extern "C" fn(page: FPDF_PAGE, handle: FPDF_FORMHANDLE),
+    extern_FORM_OnBeforeClosePage: extern "C" fn(page: FPDF_PAGE, handle: FPDF_FORMHANDLE),
+    extern_FPDFDoc_GetPageMode: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FPDFPage_Flatten: extern "C" fn(page: FPDF_PAGE, nFlag: c_int) -> c_int,
+    extern_FORM_DoDocumentJSAction: extern "C" fn(hHandle: FPDF_FORMHANDLE),
+    extern_FORM_DoDocumentOpenAction: extern "C" fn(hHandle: FPDF_FORMHANDLE),
+    extern_FORM_DoDocumentAAction: extern "C" fn(hHandle: FPDF_FORMHANDLE, aaType: c_int),
     extern_FORM_DoPageAAction:
-        unsafe extern "C" fn(page: FPDF_PAGE, hHandle: FPDF_FORMHANDLE, aaType: c_int),
-    extern_FORM_OnMouseMove: unsafe extern "C" fn(
+        extern "C" fn(page: FPDF_PAGE, hHandle: FPDF_FORMHANDLE, aaType: c_int),
+    extern_FORM_OnMouseMove: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnMouseWheel: unsafe extern "C" fn(
+    extern_FORM_OnMouseWheel: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
@@ -1143,116 +1143,116 @@ pub(crate) struct DynamicPdfiumBindings {
         delta_x: c_int,
         delta_y: c_int,
     ) -> FPDF_BOOL,
-    extern_FORM_OnFocus: unsafe extern "C" fn(
+    extern_FORM_OnFocus: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnLButtonDown: unsafe extern "C" fn(
+    extern_FORM_OnLButtonDown: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnRButtonDown: unsafe extern "C" fn(
+    extern_FORM_OnRButtonDown: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnLButtonUp: unsafe extern "C" fn(
+    extern_FORM_OnLButtonUp: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnRButtonUp: unsafe extern "C" fn(
+    extern_FORM_OnRButtonUp: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnLButtonDoubleClick: unsafe extern "C" fn(
+    extern_FORM_OnLButtonDoubleClick: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         modifier: c_int,
         page_x: f64,
         page_y: f64,
     ) -> FPDF_BOOL,
-    extern_FORM_OnKeyDown: unsafe extern "C" fn(
+    extern_FORM_OnKeyDown: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         nKeyCode: c_int,
         modifier: c_int,
     ) -> FPDF_BOOL,
-    extern_FORM_OnKeyUp: unsafe extern "C" fn(
+    extern_FORM_OnKeyUp: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         nKeyCode: c_int,
         modifier: c_int,
     ) -> FPDF_BOOL,
-    extern_FORM_OnChar: unsafe extern "C" fn(
+    extern_FORM_OnChar: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         nChar: c_int,
         modifier: c_int,
     ) -> FPDF_BOOL,
-    extern_FORM_GetFocusedText: unsafe extern "C" fn(
+    extern_FORM_GetFocusedText: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FORM_GetSelectedText: unsafe extern "C" fn(
+    extern_FORM_GetSelectedText: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FORM_ReplaceAndKeepSelection:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, wsText: FPDF_WIDESTRING),
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, wsText: FPDF_WIDESTRING),
     extern_FORM_ReplaceSelection:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, wsText: FPDF_WIDESTRING),
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, wsText: FPDF_WIDESTRING),
     extern_FORM_SelectAllText:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
     extern_FORM_CanUndo:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
     extern_FORM_CanRedo:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
-    extern_FORM_Undo: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
-    extern_FORM_Redo: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
-    extern_FORM_ForceToKillFocus: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE) -> FPDF_BOOL,
-    extern_FORM_GetFocusedAnnot: unsafe extern "C" fn(
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
+    extern_FORM_Undo: extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
+    extern_FORM_Redo: extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE) -> FPDF_BOOL,
+    extern_FORM_ForceToKillFocus: extern "C" fn(hHandle: FPDF_FORMHANDLE) -> FPDF_BOOL,
+    extern_FORM_GetFocusedAnnot: extern "C" fn(
         handle: FPDF_FORMHANDLE,
         page_index: *mut c_int,
         annot: *mut FPDF_ANNOTATION,
     ) -> FPDF_BOOL,
     extern_FORM_SetFocusedAnnot:
-        unsafe extern "C" fn(handle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> FPDF_BOOL,
-    extern_FPDFPage_HasFormFieldAtPoint: unsafe extern "C" fn(
+        extern "C" fn(handle: FPDF_FORMHANDLE, annot: FPDF_ANNOTATION) -> FPDF_BOOL,
+    extern_FPDFPage_HasFormFieldAtPoint: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         page_x: f64,
         page_y: f64,
     ) -> c_int,
-    extern_FPDFPage_FormFieldZOrderAtPoint: unsafe extern "C" fn(
+    extern_FPDFPage_FormFieldZOrderAtPoint: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         page_x: f64,
         page_y: f64,
     ) -> c_int,
     extern_FPDF_SetFormFieldHighlightColor:
-        unsafe extern "C" fn(handle: FPDF_FORMHANDLE, field_type: c_int, color: c_ulong),
+        extern "C" fn(handle: FPDF_FORMHANDLE, field_type: c_int, color: c_ulong),
     extern_FPDF_SetFormFieldHighlightAlpha:
-        unsafe extern "C" fn(handle: FPDF_FORMHANDLE, alpha: c_uchar),
-    extern_FPDF_RemoveFormFieldHighlight: unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE),
-    extern_FPDF_FFLDraw: unsafe extern "C" fn(
+        extern "C" fn(handle: FPDF_FORMHANDLE, alpha: c_uchar),
+    extern_FPDF_RemoveFormFieldHighlight: extern "C" fn(hHandle: FPDF_FORMHANDLE),
+    extern_FPDF_FFLDraw: extern "C" fn(
         handle: FPDF_FORMHANDLE,
         bitmap: FPDF_BITMAP,
         page: FPDF_PAGE,
@@ -1264,7 +1264,7 @@ pub(crate) struct DynamicPdfiumBindings {
         flags: c_int,
     ),
     #[cfg(feature = "pdfium_use_skia")]
-    extern_FPDF_FFLDrawSkia: unsafe extern "C" fn(
+    extern_FPDF_FFLDrawSkia: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         canvas: FPDF_SKIA_CANVAS,
         page: FPDF_PAGE,
@@ -1275,31 +1275,31 @@ pub(crate) struct DynamicPdfiumBindings {
         rotate: c_int,
         flags: c_int,
     ),
-    extern_FPDF_GetFormType: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
-    extern_FORM_SetIndexSelected: unsafe extern "C" fn(
+    extern_FPDF_GetFormType: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FORM_SetIndexSelected: extern "C" fn(
         hHandle: FPDF_FORMHANDLE,
         page: FPDF_PAGE,
         index: c_int,
         selected: FPDF_BOOL,
     ) -> FPDF_BOOL,
     extern_FORM_IsIndexSelected:
-        unsafe extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, index: c_int) -> FPDF_BOOL,
-    extern_FPDF_LoadXFA: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
-    extern_FPDFDoc_GetJavaScriptActionCount: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+        extern "C" fn(hHandle: FPDF_FORMHANDLE, page: FPDF_PAGE, index: c_int) -> FPDF_BOOL,
+    extern_FPDF_LoadXFA: extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
+    extern_FPDFDoc_GetJavaScriptActionCount: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     extern_FPDFDoc_GetJavaScriptAction:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_JAVASCRIPT_ACTION,
-    extern_FPDFDoc_CloseJavaScriptAction: unsafe extern "C" fn(javascript: FPDF_JAVASCRIPT_ACTION),
-    extern_FPDFJavaScriptAction_GetName: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_JAVASCRIPT_ACTION,
+    extern_FPDFDoc_CloseJavaScriptAction: extern "C" fn(javascript: FPDF_JAVASCRIPT_ACTION),
+    extern_FPDFJavaScriptAction_GetName: extern "C" fn(
         javascript: FPDF_JAVASCRIPT_ACTION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFJavaScriptAction_GetScript: unsafe extern "C" fn(
+    extern_FPDFJavaScriptAction_GetScript: extern "C" fn(
         javascript: FPDF_JAVASCRIPT_ACTION,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_GetDefaultTTFMap: unsafe extern "C" fn() -> *const FPDF_CharsetFontMap,
+    extern_FPDF_GetDefaultTTFMap: extern "C" fn() -> *const FPDF_CharsetFontMap,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1309,7 +1309,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6611",
         feature = "pdfium_6569",
     ))]
-    extern_FPDF_GetDefaultTTFMapCount: unsafe extern "C" fn() -> usize,
+    extern_FPDF_GetDefaultTTFMapCount: extern "C" fn() -> usize,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1320,46 +1320,46 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6569",
     ))]
     extern_FPDF_GetDefaultTTFMapEntry:
-        unsafe extern "C" fn(index: usize) -> *const FPDF_CharsetFontMap,
+        extern "C" fn(index: usize) -> *const FPDF_CharsetFontMap,
     extern_FPDF_AddInstalledFont:
-        unsafe extern "C" fn(mapper: *mut c_void, face: *const c_char, charset: c_int),
-    extern_FPDF_SetSystemFontInfo: unsafe extern "C" fn(pFontInfo: *mut FPDF_SYSFONTINFO),
-    extern_FPDF_GetDefaultSystemFontInfo: unsafe extern "C" fn() -> *mut FPDF_SYSFONTINFO,
-    extern_FPDF_FreeDefaultSystemFontInfo: unsafe extern "C" fn(pFontInfo: *mut FPDF_SYSFONTINFO),
+        extern "C" fn(mapper: *mut c_void, face: *const c_char, charset: c_int),
+    extern_FPDF_SetSystemFontInfo: extern "C" fn(pFontInfo: *mut FPDF_SYSFONTINFO),
+    extern_FPDF_GetDefaultSystemFontInfo: extern "C" fn() -> *mut FPDF_SYSFONTINFO,
+    extern_FPDF_FreeDefaultSystemFontInfo: extern "C" fn(pFontInfo: *mut FPDF_SYSFONTINFO),
     extern_FPDFBookmark_GetFirstChild:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_BOOKMARK,
+        extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_BOOKMARK,
     extern_FPDFBookmark_GetNextSibling:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_BOOKMARK,
-    extern_FPDFBookmark_GetTitle: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_BOOKMARK,
+    extern_FPDFBookmark_GetTitle: extern "C" fn(
         bookmark: FPDF_BOOKMARK,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFBookmark_GetCount: unsafe extern "C" fn(bookmark: FPDF_BOOKMARK) -> c_int,
+    extern_FPDFBookmark_GetCount: extern "C" fn(bookmark: FPDF_BOOKMARK) -> c_int,
     extern_FPDFBookmark_Find:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, title: FPDF_WIDESTRING) -> FPDF_BOOKMARK,
+        extern "C" fn(document: FPDF_DOCUMENT, title: FPDF_WIDESTRING) -> FPDF_BOOKMARK,
     extern_FPDFBookmark_GetDest:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_DEST,
-    extern_FPDFBookmark_GetAction: unsafe extern "C" fn(bookmark: FPDF_BOOKMARK) -> FPDF_ACTION,
-    extern_FPDFAction_GetType: unsafe extern "C" fn(action: FPDF_ACTION) -> c_ulong,
+        extern "C" fn(document: FPDF_DOCUMENT, bookmark: FPDF_BOOKMARK) -> FPDF_DEST,
+    extern_FPDFBookmark_GetAction: extern "C" fn(bookmark: FPDF_BOOKMARK) -> FPDF_ACTION,
+    extern_FPDFAction_GetType: extern "C" fn(action: FPDF_ACTION) -> c_ulong,
     extern_FPDFAction_GetDest:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, action: FPDF_ACTION) -> FPDF_DEST,
+        extern "C" fn(document: FPDF_DOCUMENT, action: FPDF_ACTION) -> FPDF_DEST,
     extern_FPDFAction_GetFilePath:
-        unsafe extern "C" fn(action: FPDF_ACTION, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
-    extern_FPDFAction_GetURIPath: unsafe extern "C" fn(
+        extern "C" fn(action: FPDF_ACTION, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
+    extern_FPDFAction_GetURIPath: extern "C" fn(
         document: FPDF_DOCUMENT,
         action: FPDF_ACTION,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFDest_GetDestPageIndex:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, dest: FPDF_DEST) -> c_int,
-    extern_FPDFDest_GetView: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, dest: FPDF_DEST) -> c_int,
+    extern_FPDFDest_GetView: extern "C" fn(
         dest: FPDF_DEST,
         pNumParams: *mut c_ulong,
         pParams: *mut FS_FLOAT,
     ) -> c_ulong,
-    extern_FPDFDest_GetLocationInPage: unsafe extern "C" fn(
+    extern_FPDFDest_GetLocationInPage: extern "C" fn(
         dest: FPDF_DEST,
         hasXVal: *mut FPDF_BOOL,
         hasYVal: *mut FPDF_BOOL,
@@ -1369,34 +1369,34 @@ pub(crate) struct DynamicPdfiumBindings {
         zoom: *mut FS_FLOAT,
     ) -> FPDF_BOOL,
     extern_FPDFLink_GetLinkAtPoint:
-        unsafe extern "C" fn(page: FPDF_PAGE, x: c_double, y: c_double) -> FPDF_LINK,
+        extern "C" fn(page: FPDF_PAGE, x: c_double, y: c_double) -> FPDF_LINK,
     extern_FPDFLink_GetLinkZOrderAtPoint:
-        unsafe extern "C" fn(page: FPDF_PAGE, x: c_double, y: c_double) -> c_int,
+        extern "C" fn(page: FPDF_PAGE, x: c_double, y: c_double) -> c_int,
     extern_FPDFLink_GetDest:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, link: FPDF_LINK) -> FPDF_DEST,
-    extern_FPDFLink_GetAction: unsafe extern "C" fn(link: FPDF_LINK) -> FPDF_ACTION,
-    extern_FPDFLink_Enumerate: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, link: FPDF_LINK) -> FPDF_DEST,
+    extern_FPDFLink_GetAction: extern "C" fn(link: FPDF_LINK) -> FPDF_ACTION,
+    extern_FPDFLink_Enumerate: extern "C" fn(
         page: FPDF_PAGE,
         start_pos: *mut c_int,
         link_annot: *mut FPDF_LINK,
     ) -> FPDF_BOOL,
     extern_FPDFLink_GetAnnot:
-        unsafe extern "C" fn(page: FPDF_PAGE, link_annot: FPDF_LINK) -> FPDF_ANNOTATION,
+        extern "C" fn(page: FPDF_PAGE, link_annot: FPDF_LINK) -> FPDF_ANNOTATION,
     extern_FPDFLink_GetAnnotRect:
-        unsafe extern "C" fn(link_annot: FPDF_LINK, rect: *mut FS_RECTF) -> FPDF_BOOL,
-    extern_FPDFLink_CountQuadPoints: unsafe extern "C" fn(link_annot: FPDF_LINK) -> c_int,
-    extern_FPDFLink_GetQuadPoints: unsafe extern "C" fn(
+        extern "C" fn(link_annot: FPDF_LINK, rect: *mut FS_RECTF) -> FPDF_BOOL,
+    extern_FPDFLink_CountQuadPoints: extern "C" fn(link_annot: FPDF_LINK) -> c_int,
+    extern_FPDFLink_GetQuadPoints: extern "C" fn(
         link_annot: FPDF_LINK,
         quad_index: c_int,
         quad_points: *mut FS_QUADPOINTSF,
     ) -> FPDF_BOOL,
     extern_FPDF_GetPageAAction:
-        unsafe extern "C" fn(page: FPDF_PAGE, aa_type: c_int) -> FPDF_ACTION,
-    extern_FPDFText_LoadPage: unsafe extern "C" fn(page: FPDF_PAGE) -> FPDF_TEXTPAGE,
-    extern_FPDFText_ClosePage: unsafe extern "C" fn(text_page: FPDF_TEXTPAGE),
-    extern_FPDFText_CountChars: unsafe extern "C" fn(text_page: FPDF_TEXTPAGE) -> c_int,
+        extern "C" fn(page: FPDF_PAGE, aa_type: c_int) -> FPDF_ACTION,
+    extern_FPDFText_LoadPage: extern "C" fn(page: FPDF_PAGE) -> FPDF_TEXTPAGE,
+    extern_FPDFText_ClosePage: extern "C" fn(text_page: FPDF_TEXTPAGE),
+    extern_FPDFText_CountChars: extern "C" fn(text_page: FPDF_TEXTPAGE) -> c_int,
     extern_FPDFText_GetUnicode:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_uint,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_uint,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1406,9 +1406,9 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6611",
     ))]
     extern_FPDFText_GetTextObject:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> FPDF_PAGEOBJECT,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> FPDF_PAGEOBJECT,
     extern_FPDFText_IsGenerated:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1430,12 +1430,12 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6043",
         feature = "pdfium_6015",
     ))]
-    extern_FPDFText_IsHyphen: unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
+    extern_FPDFText_IsHyphen: extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
     extern_FPDFText_HasUnicodeMapError:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
     extern_FPDFText_GetFontSize:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_double,
-    extern_FPDFText_GetFontInfo: unsafe extern "C" fn(
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_double,
+    extern_FPDFText_GetFontInfo: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         buffer: *mut c_void,
@@ -1443,7 +1443,7 @@ pub(crate) struct DynamicPdfiumBindings {
         flags: *mut c_int,
     ) -> c_ulong,
     extern_FPDFText_GetFontWeight:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_int,
     #[cfg(any(
         feature = "pdfium_6569",
         feature = "pdfium_6555",
@@ -1461,8 +1461,8 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_5961"
     ))]
     extern_FPDFText_GetTextRenderMode:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> FPDF_TEXT_RENDERMODE,
-    extern_FPDFText_GetFillColor: unsafe extern "C" fn(
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> FPDF_TEXT_RENDERMODE,
+    extern_FPDFText_GetFillColor: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         R: *mut c_uint,
@@ -1470,7 +1470,7 @@ pub(crate) struct DynamicPdfiumBindings {
         B: *mut c_uint,
         A: *mut c_uint,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetStrokeColor: unsafe extern "C" fn(
+    extern_FPDFText_GetStrokeColor: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         R: *mut c_uint,
@@ -1479,8 +1479,8 @@ pub(crate) struct DynamicPdfiumBindings {
         A: *mut c_uint,
     ) -> FPDF_BOOL,
     extern_FPDFText_GetCharAngle:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_float,
-    extern_FPDFText_GetCharBox: unsafe extern "C" fn(
+        extern "C" fn(text_page: FPDF_TEXTPAGE, index: c_int) -> c_float,
+    extern_FPDFText_GetCharBox: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         left: *mut c_double,
@@ -1488,38 +1488,38 @@ pub(crate) struct DynamicPdfiumBindings {
         bottom: *mut c_double,
         top: *mut c_double,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetLooseCharBox: unsafe extern "C" fn(
+    extern_FPDFText_GetLooseCharBox: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         rect: *mut FS_RECTF,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetMatrix: unsafe extern "C" fn(
+    extern_FPDFText_GetMatrix: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         matrix: *mut FS_MATRIX,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetCharOrigin: unsafe extern "C" fn(
+    extern_FPDFText_GetCharOrigin: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         index: c_int,
         x: *mut c_double,
         y: *mut c_double,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetCharIndexAtPos: unsafe extern "C" fn(
+    extern_FPDFText_GetCharIndexAtPos: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         x: c_double,
         y: c_double,
         xTolerance: c_double,
         yTolerance: c_double,
     ) -> c_int,
-    extern_FPDFText_GetText: unsafe extern "C" fn(
+    extern_FPDFText_GetText: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         start_index: c_int,
         count: c_int,
         result: *mut c_ushort,
     ) -> c_int,
     extern_FPDFText_CountRects:
-        unsafe extern "C" fn(text_page: FPDF_TEXTPAGE, start_index: c_int, count: c_int) -> c_int,
-    extern_FPDFText_GetRect: unsafe extern "C" fn(
+        extern "C" fn(text_page: FPDF_TEXTPAGE, start_index: c_int, count: c_int) -> c_int,
+    extern_FPDFText_GetRect: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         rect_index: c_int,
         left: *mut c_double,
@@ -1527,7 +1527,7 @@ pub(crate) struct DynamicPdfiumBindings {
         right: *mut c_double,
         bottom: *mut c_double,
     ) -> FPDF_BOOL,
-    extern_FPDFText_GetBoundedText: unsafe extern "C" fn(
+    extern_FPDFText_GetBoundedText: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         left: c_double,
         top: c_double,
@@ -1536,28 +1536,28 @@ pub(crate) struct DynamicPdfiumBindings {
         buffer: *mut c_ushort,
         buflen: c_int,
     ) -> c_int,
-    extern_FPDFText_FindStart: unsafe extern "C" fn(
+    extern_FPDFText_FindStart: extern "C" fn(
         text_page: FPDF_TEXTPAGE,
         findwhat: FPDF_WIDESTRING,
         flags: c_ulong,
         start_index: c_int,
     ) -> FPDF_SCHHANDLE,
-    extern_FPDFText_FindNext: unsafe extern "C" fn(handle: FPDF_SCHHANDLE) -> FPDF_BOOL,
-    extern_FPDFText_FindPrev: unsafe extern "C" fn(handle: FPDF_SCHHANDLE) -> FPDF_BOOL,
-    extern_FPDFText_GetSchResultIndex: unsafe extern "C" fn(handle: FPDF_SCHHANDLE) -> c_int,
-    extern_FPDFText_GetSchCount: unsafe extern "C" fn(handle: FPDF_SCHHANDLE) -> c_int,
-    extern_FPDFText_FindClose: unsafe extern "C" fn(handle: FPDF_SCHHANDLE),
-    extern_FPDFLink_LoadWebLinks: unsafe extern "C" fn(text_page: FPDF_TEXTPAGE) -> FPDF_PAGELINK,
-    extern_FPDFLink_CountWebLinks: unsafe extern "C" fn(link_page: FPDF_PAGELINK) -> c_int,
-    extern_FPDFLink_GetURL: unsafe extern "C" fn(
+    extern_FPDFText_FindNext: extern "C" fn(handle: FPDF_SCHHANDLE) -> FPDF_BOOL,
+    extern_FPDFText_FindPrev: extern "C" fn(handle: FPDF_SCHHANDLE) -> FPDF_BOOL,
+    extern_FPDFText_GetSchResultIndex: extern "C" fn(handle: FPDF_SCHHANDLE) -> c_int,
+    extern_FPDFText_GetSchCount: extern "C" fn(handle: FPDF_SCHHANDLE) -> c_int,
+    extern_FPDFText_FindClose: extern "C" fn(handle: FPDF_SCHHANDLE),
+    extern_FPDFLink_LoadWebLinks: extern "C" fn(text_page: FPDF_TEXTPAGE) -> FPDF_PAGELINK,
+    extern_FPDFLink_CountWebLinks: extern "C" fn(link_page: FPDF_PAGELINK) -> c_int,
+    extern_FPDFLink_GetURL: extern "C" fn(
         link_page: FPDF_PAGELINK,
         link_index: c_int,
         buffer: *mut c_ushort,
         buflen: c_int,
     ) -> c_int,
     extern_FPDFLink_CountRects:
-        unsafe extern "C" fn(link_page: FPDF_PAGELINK, link_index: c_int) -> c_int,
-    extern_FPDFLink_GetRect: unsafe extern "C" fn(
+        extern "C" fn(link_page: FPDF_PAGELINK, link_index: c_int) -> c_int,
+    extern_FPDFLink_GetRect: extern "C" fn(
         link_page: FPDF_PAGELINK,
         link_index: c_int,
         rect_index: c_int,
@@ -1566,58 +1566,58 @@ pub(crate) struct DynamicPdfiumBindings {
         right: *mut c_double,
         bottom: *mut c_double,
     ) -> FPDF_BOOL,
-    extern_FPDFLink_GetTextRange: unsafe extern "C" fn(
+    extern_FPDFLink_GetTextRange: extern "C" fn(
         link_page: FPDF_PAGELINK,
         link_index: c_int,
         start_char_index: *mut c_int,
         char_count: *mut c_int,
     ) -> FPDF_BOOL,
-    extern_FPDFLink_CloseWebLinks: unsafe extern "C" fn(link_page: FPDF_PAGELINK),
+    extern_FPDFLink_CloseWebLinks: extern "C" fn(link_page: FPDF_PAGELINK),
     extern_FPDFPage_GetDecodedThumbnailData:
-        unsafe extern "C" fn(page: FPDF_PAGE, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
+        extern "C" fn(page: FPDF_PAGE, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
     extern_FPDFPage_GetRawThumbnailData:
-        unsafe extern "C" fn(page: FPDF_PAGE, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
-    extern_FPDFPage_GetThumbnailAsBitmap: unsafe extern "C" fn(page: FPDF_PAGE) -> FPDF_BITMAP,
-    extern_FPDFFormObj_CountObjects: unsafe extern "C" fn(form_object: FPDF_PAGEOBJECT) -> c_int,
+        extern "C" fn(page: FPDF_PAGE, buffer: *mut c_void, buflen: c_ulong) -> c_ulong,
+    extern_FPDFPage_GetThumbnailAsBitmap: extern "C" fn(page: FPDF_PAGE) -> FPDF_BITMAP,
+    extern_FPDFFormObj_CountObjects: extern "C" fn(form_object: FPDF_PAGEOBJECT) -> c_int,
     extern_FPDFFormObj_GetObject:
-        unsafe extern "C" fn(form_object: FPDF_PAGEOBJECT, index: c_ulong) -> FPDF_PAGEOBJECT,
-    extern_FPDFPageObj_CreateTextObj: unsafe extern "C" fn(
+        extern "C" fn(form_object: FPDF_PAGEOBJECT, index: c_ulong) -> FPDF_PAGEOBJECT,
+    extern_FPDFPageObj_CreateTextObj: extern "C" fn(
         document: FPDF_DOCUMENT,
         font: FPDF_FONT,
         font_size: c_float,
     ) -> FPDF_PAGEOBJECT,
     extern_FPDFTextObj_GetTextRenderMode:
-        unsafe extern "C" fn(text: FPDF_PAGEOBJECT) -> FPDF_TEXT_RENDERMODE,
+        extern "C" fn(text: FPDF_PAGEOBJECT) -> FPDF_TEXT_RENDERMODE,
     extern_FPDFTextObj_SetTextRenderMode:
-        unsafe extern "C" fn(text: FPDF_PAGEOBJECT, render_mode: FPDF_TEXT_RENDERMODE) -> FPDF_BOOL,
-    extern_FPDFTextObj_GetText: unsafe extern "C" fn(
+        extern "C" fn(text: FPDF_PAGEOBJECT, render_mode: FPDF_TEXT_RENDERMODE) -> FPDF_BOOL,
+    extern_FPDFTextObj_GetText: extern "C" fn(
         text_object: FPDF_PAGEOBJECT,
         text_page: FPDF_TEXTPAGE,
         buffer: *mut FPDF_WCHAR,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDFTextObj_GetRenderedBitmap: unsafe extern "C" fn(
+    extern_FPDFTextObj_GetRenderedBitmap: extern "C" fn(
         document: FPDF_DOCUMENT,
         page: FPDF_PAGE,
         text_object: FPDF_PAGEOBJECT,
         scale: f32,
     ) -> FPDF_BITMAP,
-    extern_FPDFTextObj_GetFont: unsafe extern "C" fn(text: FPDF_PAGEOBJECT) -> FPDF_FONT,
+    extern_FPDFTextObj_GetFont: extern "C" fn(text: FPDF_PAGEOBJECT) -> FPDF_FONT,
     extern_FPDFTextObj_GetFontSize:
-        unsafe extern "C" fn(text: FPDF_PAGEOBJECT, size: *mut c_float) -> FPDF_BOOL,
-    extern_FPDFPageObj_NewTextObj: unsafe extern "C" fn(
+        extern "C" fn(text: FPDF_PAGEOBJECT, size: *mut c_float) -> FPDF_BOOL,
+    extern_FPDFPageObj_NewTextObj: extern "C" fn(
         document: FPDF_DOCUMENT,
         font: FPDF_BYTESTRING,
         font_size: c_float,
     ) -> FPDF_PAGEOBJECT,
     extern_FPDFText_SetText:
-        unsafe extern "C" fn(text_object: FPDF_PAGEOBJECT, text: FPDF_WIDESTRING) -> FPDF_BOOL,
-    extern_FPDFText_SetCharcodes: unsafe extern "C" fn(
+        extern "C" fn(text_object: FPDF_PAGEOBJECT, text: FPDF_WIDESTRING) -> FPDF_BOOL,
+    extern_FPDFText_SetCharcodes: extern "C" fn(
         text_object: FPDF_PAGEOBJECT,
         charcodes: *const c_uint,
         count: size_t,
     ) -> FPDF_BOOL,
-    extern_FPDFText_LoadFont: unsafe extern "C" fn(
+    extern_FPDFText_LoadFont: extern "C" fn(
         document: FPDF_DOCUMENT,
         data: *const c_uchar,
         size: c_uint,
@@ -1625,7 +1625,7 @@ pub(crate) struct DynamicPdfiumBindings {
         cid: FPDF_BOOL,
     ) -> FPDF_FONT,
     extern_FPDFText_LoadStandardFont:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, font: FPDF_BYTESTRING) -> FPDF_FONT,
+        extern "C" fn(document: FPDF_DOCUMENT, font: FPDF_BYTESTRING) -> FPDF_FONT,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1640,7 +1640,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6337",
         feature = "pdfium_6295",
     ))]
-    extern_FPDFText_LoadCidType2Font: unsafe extern "C" fn(
+    extern_FPDFText_LoadCidType2Font: extern "C" fn(
         document: FPDF_DOCUMENT,
         font_data: *const u8,
         font_data_size: u32,
@@ -1648,12 +1648,12 @@ pub(crate) struct DynamicPdfiumBindings {
         cid_to_gid_map_data: *const u8,
         cid_to_gid_map_data_size: u32,
     ) -> FPDF_FONT,
-    extern_FPDFFont_Close: unsafe extern "C" fn(font: FPDF_FONT),
+    extern_FPDFFont_Close: extern "C" fn(font: FPDF_FONT),
     extern_FPDFPath_MoveTo:
-        unsafe extern "C" fn(path: FPDF_PAGEOBJECT, x: c_float, y: c_float) -> FPDF_BOOL,
+        extern "C" fn(path: FPDF_PAGEOBJECT, x: c_float, y: c_float) -> FPDF_BOOL,
     extern_FPDFPath_LineTo:
-        unsafe extern "C" fn(path: FPDF_PAGEOBJECT, x: c_float, y: c_float) -> FPDF_BOOL,
-    extern_FPDFPath_BezierTo: unsafe extern "C" fn(
+        extern "C" fn(path: FPDF_PAGEOBJECT, x: c_float, y: c_float) -> FPDF_BOOL,
+    extern_FPDFPath_BezierTo: extern "C" fn(
         path: FPDF_PAGEOBJECT,
         x1: c_float,
         y1: c_float,
@@ -1662,42 +1662,42 @@ pub(crate) struct DynamicPdfiumBindings {
         x3: c_float,
         y3: c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPath_Close: unsafe extern "C" fn(path: FPDF_PAGEOBJECT) -> FPDF_BOOL,
-    extern_FPDFPath_SetDrawMode: unsafe extern "C" fn(
+    extern_FPDFPath_Close: extern "C" fn(path: FPDF_PAGEOBJECT) -> FPDF_BOOL,
+    extern_FPDFPath_SetDrawMode: extern "C" fn(
         path: FPDF_PAGEOBJECT,
         fillmode: c_int,
         stroke: FPDF_BOOL,
     ) -> FPDF_BOOL,
-    extern_FPDFPath_GetDrawMode: unsafe extern "C" fn(
+    extern_FPDFPath_GetDrawMode: extern "C" fn(
         path: FPDF_PAGEOBJECT,
         fillmode: *mut c_int,
         stroke: *mut FPDF_BOOL,
     ) -> FPDF_BOOL,
-    extern_FPDFPage_InsertObject: unsafe extern "C" fn(page: FPDF_PAGE, page_obj: FPDF_PAGEOBJECT),
+    extern_FPDFPage_InsertObject: extern "C" fn(page: FPDF_PAGE, page_obj: FPDF_PAGEOBJECT),
     extern_FPDFPage_RemoveObject:
-        unsafe extern "C" fn(page: FPDF_PAGE, page_obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
-    extern_FPDFPage_CountObjects: unsafe extern "C" fn(page: FPDF_PAGE) -> c_int,
+        extern "C" fn(page: FPDF_PAGE, page_obj: FPDF_PAGEOBJECT) -> FPDF_BOOL,
+    extern_FPDFPage_CountObjects: extern "C" fn(page: FPDF_PAGE) -> c_int,
     extern_FPDFPage_GetObject:
-        unsafe extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_PAGEOBJECT,
-    extern_FPDFPageObj_Destroy: unsafe extern "C" fn(page_obj: FPDF_PAGEOBJECT),
+        extern "C" fn(page: FPDF_PAGE, index: c_int) -> FPDF_PAGEOBJECT,
+    extern_FPDFPageObj_Destroy: extern "C" fn(page_obj: FPDF_PAGEOBJECT),
     extern_FPDFPageObj_HasTransparency:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetType: unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT) -> FPDF_BOOL,
+    extern_FPDFPageObj_GetType: extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
     extern_FPDFPageObj_GetIsActive:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, active: *mut FPDF_BOOL) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, active: *mut FPDF_BOOL) -> FPDF_BOOL,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
     extern_FPDFPageObj_SetIsActive:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, active: FPDF_BOOL) -> FPDF_BOOL,
-    extern_FPDFPageObj_Transform: unsafe extern "C" fn(
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, active: FPDF_BOOL) -> FPDF_BOOL,
+    extern_FPDFPageObj_Transform: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         a: c_double,
         b: c_double,
@@ -1715,13 +1715,13 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6611",
     ))]
     extern_FPDFPageObj_TransformF:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, matrix: *const FS_MATRIX) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, matrix: *const FS_MATRIX) -> FPDF_BOOL,
     extern_FPDFPageObj_GetMatrix:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, matrix: *mut FS_MATRIX) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, matrix: *mut FS_MATRIX) -> FPDF_BOOL,
     extern_FPDFPageObj_SetMatrix:
-        unsafe extern "C" fn(path: FPDF_PAGEOBJECT, matrix: *const FS_MATRIX) -> FPDF_BOOL,
+        extern "C" fn(path: FPDF_PAGEOBJECT, matrix: *const FS_MATRIX) -> FPDF_BOOL,
     extern_FPDFPageObj_NewImageObj:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_PAGEOBJECT,
+        extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_PAGEOBJECT,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -1731,22 +1731,22 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6611",
     ))]
     extern_FPDFPageObj_GetMarkedContentID:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
-    extern_FPDFPageObj_CountMarks: unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+    extern_FPDFPageObj_CountMarks: extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
     extern_FPDFPageObj_GetMark:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, index: c_ulong) -> FPDF_PAGEOBJECTMARK,
-    extern_FPDFPageObj_AddMark: unsafe extern "C" fn(
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, index: c_ulong) -> FPDF_PAGEOBJECTMARK,
+    extern_FPDFPageObj_AddMark: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         name: FPDF_BYTESTRING,
     ) -> FPDF_PAGEOBJECTMARK,
     extern_FPDFPageObj_RemoveMark:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, mark: FPDF_PAGEOBJECTMARK) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, mark: FPDF_PAGEOBJECTMARK) -> FPDF_BOOL,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFPageObjMark_GetName: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetName: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
@@ -1771,19 +1771,19 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDFPageObjMark_GetName: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetName: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         buffer: *mut c_void,
         buflen: c_ulong,
         out_buflen: *mut c_ulong,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObjMark_CountParams: unsafe extern "C" fn(mark: FPDF_PAGEOBJECTMARK) -> c_int,
+    extern_FPDFPageObjMark_CountParams: extern "C" fn(mark: FPDF_PAGEOBJECTMARK) -> c_int,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFPageObjMark_GetParamKey: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamKey: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         index: c_ulong,
         buffer: *mut FPDF_WCHAR,
@@ -1809,7 +1809,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDFPageObjMark_GetParamKey: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamKey: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         index: c_ulong,
         buffer: *mut c_void,
@@ -1817,8 +1817,8 @@ pub(crate) struct DynamicPdfiumBindings {
         out_buflen: *mut c_ulong,
     ) -> FPDF_BOOL,
     extern_FPDFPageObjMark_GetParamValueType:
-        unsafe extern "C" fn(mark: FPDF_PAGEOBJECTMARK, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
-    extern_FPDFPageObjMark_GetParamIntValue: unsafe extern "C" fn(
+        extern "C" fn(mark: FPDF_PAGEOBJECTMARK, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
+    extern_FPDFPageObjMark_GetParamIntValue: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         out_value: *mut c_int,
@@ -1828,7 +1828,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFPageObjMark_GetParamStringValue: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamStringValue: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         buffer: *mut FPDF_WCHAR,
@@ -1854,7 +1854,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDFPageObjMark_GetParamStringValue: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamStringValue: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         buffer: *mut c_void,
@@ -1866,7 +1866,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFPageObjMark_GetParamBlobValue: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamBlobValue: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         buffer: *mut c_uchar,
@@ -1892,21 +1892,21 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDFPageObjMark_GetParamBlobValue: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_GetParamBlobValue: extern "C" fn(
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         buffer: *mut c_void,
         buflen: c_ulong,
         out_buflen: *mut c_ulong,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObjMark_SetIntParam: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_SetIntParam: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_object: FPDF_PAGEOBJECT,
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
         value: c_int,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObjMark_SetStringParam: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_SetStringParam: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_object: FPDF_PAGEOBJECT,
         mark: FPDF_PAGEOBJECTMARK,
@@ -1918,7 +1918,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFPageObjMark_SetBlobParam: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_SetBlobParam: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_object: FPDF_PAGEOBJECT,
         mark: FPDF_PAGEOBJECTMARK,
@@ -1945,7 +1945,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6015",
         feature = "pdfium_5961",
     ))]
-    extern_FPDFPageObjMark_SetBlobParam: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_SetBlobParam: extern "C" fn(
         document: FPDF_DOCUMENT,
         page_object: FPDF_PAGEOBJECT,
         mark: FPDF_PAGEOBJECTMARK,
@@ -1953,24 +1953,24 @@ pub(crate) struct DynamicPdfiumBindings {
         value: *mut c_void,
         value_len: c_ulong,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObjMark_RemoveParam: unsafe extern "C" fn(
+    extern_FPDFPageObjMark_RemoveParam: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         mark: FPDF_PAGEOBJECTMARK,
         key: FPDF_BYTESTRING,
     ) -> FPDF_BOOL,
-    extern_FPDFImageObj_LoadJpegFile: unsafe extern "C" fn(
+    extern_FPDFImageObj_LoadJpegFile: extern "C" fn(
         pages: *mut FPDF_PAGE,
         count: c_int,
         image_object: FPDF_PAGEOBJECT,
         file_access: *mut FPDF_FILEACCESS,
     ) -> FPDF_BOOL,
-    extern_FPDFImageObj_LoadJpegFileInline: unsafe extern "C" fn(
+    extern_FPDFImageObj_LoadJpegFileInline: extern "C" fn(
         pages: *mut FPDF_PAGE,
         count: c_int,
         image_object: FPDF_PAGEOBJECT,
         file_access: *mut FPDF_FILEACCESS,
     ) -> FPDF_BOOL,
-    extern_FPDFImageObj_SetMatrix: unsafe extern "C" fn(
+    extern_FPDFImageObj_SetMatrix: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         a: c_double,
         b: c_double,
@@ -1979,43 +1979,43 @@ pub(crate) struct DynamicPdfiumBindings {
         e: c_double,
         f: c_double,
     ) -> FPDF_BOOL,
-    extern_FPDFImageObj_SetBitmap: unsafe extern "C" fn(
+    extern_FPDFImageObj_SetBitmap: extern "C" fn(
         pages: *mut FPDF_PAGE,
         count: c_int,
         image_object: FPDF_PAGEOBJECT,
         bitmap: FPDF_BITMAP,
     ) -> FPDF_BOOL,
     extern_FPDFImageObj_GetBitmap:
-        unsafe extern "C" fn(image_object: FPDF_PAGEOBJECT) -> FPDF_BITMAP,
-    extern_FPDFImageObj_GetRenderedBitmap: unsafe extern "C" fn(
+        extern "C" fn(image_object: FPDF_PAGEOBJECT) -> FPDF_BITMAP,
+    extern_FPDFImageObj_GetRenderedBitmap: extern "C" fn(
         document: FPDF_DOCUMENT,
         page: FPDF_PAGE,
         image_object: FPDF_PAGEOBJECT,
     ) -> FPDF_BITMAP,
-    extern_FPDFImageObj_GetImageDataDecoded: unsafe extern "C" fn(
+    extern_FPDFImageObj_GetImageDataDecoded: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFImageObj_GetImageDataRaw: unsafe extern "C" fn(
+    extern_FPDFImageObj_GetImageDataRaw: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFImageObj_GetImageFilterCount:
-        unsafe extern "C" fn(image_object: FPDF_PAGEOBJECT) -> c_int,
-    extern_FPDFImageObj_GetImageFilter: unsafe extern "C" fn(
+        extern "C" fn(image_object: FPDF_PAGEOBJECT) -> c_int,
+    extern_FPDFImageObj_GetImageFilter: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         index: c_int,
         buffer: *mut c_void,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFImageObj_GetImageMetadata: unsafe extern "C" fn(
+    extern_FPDFImageObj_GetImageMetadata: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         page: FPDF_PAGE,
         metadata: *mut FPDF_IMAGEOBJ_METADATA,
     ) -> FPDF_BOOL,
-    extern_FPDFImageObj_GetImagePixelSize: unsafe extern "C" fn(
+    extern_FPDFImageObj_GetImagePixelSize: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         width: *mut c_uint,
         height: *mut c_uint,
@@ -2025,7 +2025,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_7123",
         feature = "pdfium_6996"
     ))]
-    extern_FPDFImageObj_GetIccProfileDataDecoded: unsafe extern "C" fn(
+    extern_FPDFImageObj_GetIccProfileDataDecoded: extern "C" fn(
         image_object: FPDF_PAGEOBJECT,
         page: FPDF_PAGE,
         buffer: *mut u8,
@@ -2033,30 +2033,30 @@ pub(crate) struct DynamicPdfiumBindings {
         out_buflen: *mut size_t,
     ) -> FPDF_BOOL,
     extern_FPDFPageObj_CreateNewPath:
-        unsafe extern "C" fn(x: c_float, y: c_float) -> FPDF_PAGEOBJECT,
+        extern "C" fn(x: c_float, y: c_float) -> FPDF_PAGEOBJECT,
     extern_FPDFPageObj_CreateNewRect:
-        unsafe extern "C" fn(x: c_float, y: c_float, w: c_float, h: c_float) -> FPDF_PAGEOBJECT,
-    extern_FPDFPageObj_GetBounds: unsafe extern "C" fn(
+        extern "C" fn(x: c_float, y: c_float, w: c_float, h: c_float) -> FPDF_PAGEOBJECT,
+    extern_FPDFPageObj_GetBounds: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         left: *mut c_float,
         bottom: *mut c_float,
         right: *mut c_float,
         top: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetRotatedBounds: unsafe extern "C" fn(
+    extern_FPDFPageObj_GetRotatedBounds: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         quad_points: *mut FS_QUADPOINTSF,
     ) -> FPDF_BOOL,
     extern_FPDFPageObj_SetBlendMode:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, blend_mode: FPDF_BYTESTRING),
-    extern_FPDFPageObj_SetStrokeColor: unsafe extern "C" fn(
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, blend_mode: FPDF_BYTESTRING),
+    extern_FPDFPageObj_SetStrokeColor: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         R: c_uint,
         G: c_uint,
         B: c_uint,
         A: c_uint,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetStrokeColor: unsafe extern "C" fn(
+    extern_FPDFPageObj_GetStrokeColor: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         R: *mut c_uint,
         G: *mut c_uint,
@@ -2064,23 +2064,23 @@ pub(crate) struct DynamicPdfiumBindings {
         A: *mut c_uint,
     ) -> FPDF_BOOL,
     extern_FPDFPageObj_SetStrokeWidth:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, width: c_float) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, width: c_float) -> FPDF_BOOL,
     extern_FPDFPageObj_GetStrokeWidth:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, width: *mut c_float) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetLineJoin: unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, width: *mut c_float) -> FPDF_BOOL,
+    extern_FPDFPageObj_GetLineJoin: extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
     extern_FPDFPageObj_SetLineJoin:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, line_join: c_int) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetLineCap: unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, line_join: c_int) -> FPDF_BOOL,
+    extern_FPDFPageObj_GetLineCap: extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
     extern_FPDFPageObj_SetLineCap:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, line_cap: c_int) -> FPDF_BOOL,
-    extern_FPDFPageObj_SetFillColor: unsafe extern "C" fn(
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, line_cap: c_int) -> FPDF_BOOL,
+    extern_FPDFPageObj_SetFillColor: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         R: c_uint,
         G: c_uint,
         B: c_uint,
         A: c_uint,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetFillColor: unsafe extern "C" fn(
+    extern_FPDFPageObj_GetFillColor: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         R: *mut c_uint,
         G: *mut c_uint,
@@ -2088,28 +2088,28 @@ pub(crate) struct DynamicPdfiumBindings {
         A: *mut c_uint,
     ) -> FPDF_BOOL,
     extern_FPDFPageObj_GetDashPhase:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, phase: *mut c_float) -> FPDF_BOOL,
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, phase: *mut c_float) -> FPDF_BOOL,
     extern_FPDFPageObj_SetDashPhase:
-        unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT, phase: c_float) -> FPDF_BOOL,
-    extern_FPDFPageObj_GetDashCount: unsafe extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
-    extern_FPDFPageObj_GetDashArray: unsafe extern "C" fn(
+        extern "C" fn(page_object: FPDF_PAGEOBJECT, phase: c_float) -> FPDF_BOOL,
+    extern_FPDFPageObj_GetDashCount: extern "C" fn(page_object: FPDF_PAGEOBJECT) -> c_int,
+    extern_FPDFPageObj_GetDashArray: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         dash_array: *mut c_float,
         dash_count: size_t,
     ) -> FPDF_BOOL,
-    extern_FPDFPageObj_SetDashArray: unsafe extern "C" fn(
+    extern_FPDFPageObj_SetDashArray: extern "C" fn(
         page_object: FPDF_PAGEOBJECT,
         dash_array: *const c_float,
         dash_count: size_t,
         phase: c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFPath_CountSegments: unsafe extern "C" fn(path: FPDF_PAGEOBJECT) -> c_int,
+    extern_FPDFPath_CountSegments: extern "C" fn(path: FPDF_PAGEOBJECT) -> c_int,
     extern_FPDFPath_GetPathSegment:
-        unsafe extern "C" fn(path: FPDF_PAGEOBJECT, index: c_int) -> FPDF_PATHSEGMENT,
+        extern "C" fn(path: FPDF_PAGEOBJECT, index: c_int) -> FPDF_PATHSEGMENT,
     extern_FPDFPathSegment_GetPoint:
-        unsafe extern "C" fn(segment: FPDF_PATHSEGMENT, x: *mut f32, y: *mut f32) -> FPDF_BOOL,
-    extern_FPDFPathSegment_GetType: unsafe extern "C" fn(segment: FPDF_PATHSEGMENT) -> c_int,
-    extern_FPDFPathSegment_GetClose: unsafe extern "C" fn(segment: FPDF_PATHSEGMENT) -> FPDF_BOOL,
+        extern "C" fn(segment: FPDF_PATHSEGMENT, x: *mut f32, y: *mut f32) -> FPDF_BOOL,
+    extern_FPDFPathSegment_GetType: extern "C" fn(segment: FPDF_PATHSEGMENT) -> c_int,
+    extern_FPDFPathSegment_GetClose: extern "C" fn(segment: FPDF_PATHSEGMENT) -> FPDF_BOOL,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -2118,7 +2118,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6666"
     ))]
     extern_FPDFFont_GetBaseFontName:
-        unsafe extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: usize) -> usize,
+        extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: usize) -> usize,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -2127,10 +2127,10 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6666"
     ))]
     extern_FPDFFont_GetFamilyName:
-        unsafe extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: usize) -> usize,
+        extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: usize) -> usize,
     #[cfg(feature = "pdfium_6611")]
     extern_FPDFFont_GetFamilyName:
-        unsafe extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: c_ulong) -> c_ulong,
+        extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: c_ulong) -> c_ulong,
     #[cfg(any(
         feature = "pdfium_6569",
         feature = "pdfium_6555",
@@ -2148,107 +2148,107 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_5961"
     ))]
     extern_FPDFFont_GetFontName:
-        unsafe extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: c_ulong) -> c_ulong,
-    extern_FPDFFont_GetFontData: unsafe extern "C" fn(
+        extern "C" fn(font: FPDF_FONT, buffer: *mut c_char, length: c_ulong) -> c_ulong,
+    extern_FPDFFont_GetFontData: extern "C" fn(
         font: FPDF_FONT,
         buffer: *mut u8,
         buflen: usize,
         out_buflen: *mut usize,
     ) -> FPDF_BOOL,
-    extern_FPDFFont_GetIsEmbedded: unsafe extern "C" fn(font: FPDF_FONT) -> c_int,
-    extern_FPDFFont_GetFlags: unsafe extern "C" fn(font: FPDF_FONT) -> c_int,
-    extern_FPDFFont_GetWeight: unsafe extern "C" fn(font: FPDF_FONT) -> c_int,
+    extern_FPDFFont_GetIsEmbedded: extern "C" fn(font: FPDF_FONT) -> c_int,
+    extern_FPDFFont_GetFlags: extern "C" fn(font: FPDF_FONT) -> c_int,
+    extern_FPDFFont_GetWeight: extern "C" fn(font: FPDF_FONT) -> c_int,
     extern_FPDFFont_GetItalicAngle:
-        unsafe extern "C" fn(font: FPDF_FONT, angle: *mut c_int) -> FPDF_BOOL,
-    extern_FPDFFont_GetAscent: unsafe extern "C" fn(
+        extern "C" fn(font: FPDF_FONT, angle: *mut c_int) -> FPDF_BOOL,
+    extern_FPDFFont_GetAscent: extern "C" fn(
         font: FPDF_FONT,
         font_size: c_float,
         ascent: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFFont_GetDescent: unsafe extern "C" fn(
+    extern_FPDFFont_GetDescent: extern "C" fn(
         font: FPDF_FONT,
         font_size: c_float,
         descent: *mut c_float,
     ) -> FPDF_BOOL,
-    extern_FPDFFont_GetGlyphWidth: unsafe extern "C" fn(
+    extern_FPDFFont_GetGlyphWidth: extern "C" fn(
         font: FPDF_FONT,
         glyph: c_uint,
         font_size: c_float,
         width: *mut c_float,
     ) -> FPDF_BOOL,
     extern_FPDFFont_GetGlyphPath:
-        unsafe extern "C" fn(font: FPDF_FONT, glyph: c_uint, font_size: c_float) -> FPDF_GLYPHPATH,
+        extern "C" fn(font: FPDF_FONT, glyph: c_uint, font_size: c_float) -> FPDF_GLYPHPATH,
     extern_FPDFGlyphPath_CountGlyphSegments:
-        unsafe extern "C" fn(glyphpath: FPDF_GLYPHPATH) -> c_int,
+        extern "C" fn(glyphpath: FPDF_GLYPHPATH) -> c_int,
     extern_FPDFGlyphPath_GetGlyphPathSegment:
-        unsafe extern "C" fn(glyphpath: FPDF_GLYPHPATH, index: c_int) -> FPDF_PATHSEGMENT,
+        extern "C" fn(glyphpath: FPDF_GLYPHPATH, index: c_int) -> FPDF_PATHSEGMENT,
     extern_FPDF_VIEWERREF_GetPrintScaling:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
-    extern_FPDF_VIEWERREF_GetNumCopies: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+        extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
+    extern_FPDF_VIEWERREF_GetNumCopies: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     extern_FPDF_VIEWERREF_GetPrintPageRange:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_PAGERANGE,
+        extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_PAGERANGE,
     extern_FPDF_VIEWERREF_GetPrintPageRangeCount:
-        unsafe extern "C" fn(pagerange: FPDF_PAGERANGE) -> size_t,
+        extern "C" fn(pagerange: FPDF_PAGERANGE) -> size_t,
     extern_FPDF_VIEWERREF_GetPrintPageRangeElement:
-        unsafe extern "C" fn(pagerange: FPDF_PAGERANGE, index: size_t) -> c_int,
+        extern "C" fn(pagerange: FPDF_PAGERANGE, index: size_t) -> c_int,
     extern_FPDF_VIEWERREF_GetDuplex:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_DUPLEXTYPE,
-    extern_FPDF_VIEWERREF_GetName: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_DUPLEXTYPE,
+    extern_FPDF_VIEWERREF_GetName: extern "C" fn(
         document: FPDF_DOCUMENT,
         key: FPDF_BYTESTRING,
         buffer: *mut c_char,
         length: c_ulong,
     ) -> c_ulong,
-    extern_FPDF_CountNamedDests: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_DWORD,
+    extern_FPDF_CountNamedDests: extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_DWORD,
     extern_FPDF_GetNamedDestByName:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, name: FPDF_BYTESTRING) -> FPDF_DEST,
-    extern_FPDF_GetNamedDest: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, name: FPDF_BYTESTRING) -> FPDF_DEST,
+    extern_FPDF_GetNamedDest: extern "C" fn(
         document: FPDF_DOCUMENT,
         index: c_int,
         buffer: *mut c_void,
         buflen: *mut c_long,
     ) -> FPDF_DEST,
 
-    extern_FPDFDoc_GetAttachmentCount: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
+    extern_FPDFDoc_GetAttachmentCount: extern "C" fn(document: FPDF_DOCUMENT) -> c_int,
     extern_FPDFDoc_AddAttachment:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, name: FPDF_WIDESTRING) -> FPDF_ATTACHMENT,
+        extern "C" fn(document: FPDF_DOCUMENT, name: FPDF_WIDESTRING) -> FPDF_ATTACHMENT,
     extern_FPDFDoc_GetAttachment:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_ATTACHMENT,
+        extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_ATTACHMENT,
     extern_FPDFDoc_DeleteAttachment:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_BOOL,
-    extern_FPDFAttachment_GetName: unsafe extern "C" fn(
+        extern "C" fn(document: FPDF_DOCUMENT, index: c_int) -> FPDF_BOOL,
+    extern_FPDFAttachment_GetName: extern "C" fn(
         attachment: FPDF_ATTACHMENT,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
     extern_FPDFAttachment_HasKey:
-        unsafe extern "C" fn(attachment: FPDF_ATTACHMENT, key: FPDF_BYTESTRING) -> FPDF_BOOL,
+        extern "C" fn(attachment: FPDF_ATTACHMENT, key: FPDF_BYTESTRING) -> FPDF_BOOL,
     extern_FPDFAttachment_GetValueType:
-        unsafe extern "C" fn(attachment: FPDF_ATTACHMENT, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
-    extern_FPDFAttachment_SetStringValue: unsafe extern "C" fn(
+        extern "C" fn(attachment: FPDF_ATTACHMENT, key: FPDF_BYTESTRING) -> FPDF_OBJECT_TYPE,
+    extern_FPDFAttachment_SetStringValue: extern "C" fn(
         attachment: FPDF_ATTACHMENT,
         key: FPDF_BYTESTRING,
         value: FPDF_WIDESTRING,
     ) -> FPDF_BOOL,
-    extern_FPDFAttachment_GetStringValue: unsafe extern "C" fn(
+    extern_FPDFAttachment_GetStringValue: extern "C" fn(
         attachment: FPDF_ATTACHMENT,
         key: FPDF_BYTESTRING,
         buffer: *mut FPDF_WCHAR,
         buflen: c_ulong,
     ) -> c_ulong,
-    extern_FPDFAttachment_SetFile: unsafe extern "C" fn(
+    extern_FPDFAttachment_SetFile: extern "C" fn(
         attachment: FPDF_ATTACHMENT,
         document: FPDF_DOCUMENT,
         contents: *const c_void,
         len: c_ulong,
     ) -> FPDF_BOOL,
-    extern_FPDFAttachment_GetFile: unsafe extern "C" fn(
+    extern_FPDFAttachment_GetFile: extern "C" fn(
         attachment: FPDF_ATTACHMENT,
         buffer: *mut c_void,
         buflen: c_ulong,
         out_buflen: *mut c_ulong,
     ) -> FPDF_BOOL,
-    extern_FPDFCatalog_IsTagged: unsafe extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
+    extern_FPDFCatalog_IsTagged: extern "C" fn(document: FPDF_DOCUMENT) -> FPDF_BOOL,
     #[cfg(any(
         feature = "pdfium_future",
         feature = "pdfium_7123",
@@ -2257,7 +2257,7 @@ pub(crate) struct DynamicPdfiumBindings {
         feature = "pdfium_6666"
     ))]
     extern_FPDFCatalog_SetLanguage:
-        unsafe extern "C" fn(document: FPDF_DOCUMENT, language: FPDF_BYTESTRING) -> FPDF_BOOL,
+        extern "C" fn(document: FPDF_DOCUMENT, language: FPDF_BYTESTRING) -> FPDF_BOOL,
 }
 
 impl DynamicPdfiumBindings {
