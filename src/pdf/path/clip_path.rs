@@ -23,10 +23,10 @@ pub struct PdfClipPath<'a> {
 }
 
 impl<'a> PdfClipPath<'a> {
-    #[inline]
+    /*#[inline]
     pub fn bindings(&self) -> &'a dyn PdfiumLibraryBindings {
         self.bindings
-    }
+    }*/
 }
 
 impl<'a> Drop for PdfClipPath<'a> {
